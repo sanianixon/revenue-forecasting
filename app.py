@@ -7,6 +7,7 @@ airtel_df = pd.read_csv("data/airtel_data.csv")
 jio_df = pd.read_csv("data/jio_data.csv")
 
 st.title("Subscription Revenue Forecasting")
+
 st.write("This tool estimates subscription-based revenue using ARPU, customer base, inflation, and pricing change inputs.")
 st.write("Enter forecast inputs below.")
 
@@ -35,10 +36,16 @@ if show_data:
 
     if company == "Airtel":
         st.subheader("Airtel Historical Data")
+        st.markdown(
+            "[Source: Airtel Investor Relations Quarterly Results](https://www.airtel.in/about-bharti/equity/results)"
+        )
 
         st.dataframe(airtel_df, use_container_width=True)
 
     elif company == "Jio":
         st.subheader("Jio Historical Data")
+        st.markdown(
+            "[Source: Reliance Industries Investor Relations Quarterly Results](https://www.ril.com/investors/financial-reporting)"
+        )
 
         st.dataframe(jio_df, use_container_width=True)
