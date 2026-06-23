@@ -8,7 +8,7 @@ jio_df = pd.read_csv("data/jio_data.csv")
 
 st.title("Subscription Revenue Forecasting")
 
-st.write("This tool estimates subscription-based revenue using ARPU, customer base, inflation, and pricing change inputs.")
+st.write("This tool estimates subscription-based revenue using ARPU, customer base, inflation, and pricing change inputs, using multiple linear regression.")
 st.write("Enter forecast inputs below.")
 
 arpu = st.number_input("ARPU", value=250.0)
