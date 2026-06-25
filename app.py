@@ -3,18 +3,75 @@ import pandas as pd
 
 st.set_page_config(page_title="Subscription Revenue Forecasting")
 
-airtel_df = pd.read_csv("data/airtel_data.csv")
-jio_df = pd.read_csv("data/jio_data.csv")
+company = st.selectbox(
+    "Select Company",
+    [
+        "Airtel",
+        "Jio",
+        "Custom Company"
+    ]
+)
+
+if company == "Airtel":
+    df = pd.read_csv("data/airtel_auto_training_data.csv")
+    dataset_status = "Automated"
+    latest_quarter = df.iloc[-1]["Quarter"]
+
+elif company == "Jio":
+    df = pd.read_csv("data/jio_data.csv")
+    dataset_status = "Manual"
+    latest_quarter = df.iloc[-1]["Quarter"]
+
+else:
+    uploaded_file = st.file_uploader(
+        "Upload Company CSV",
+        type=["csv"]
+    )
+
+    if uploaded_file is not None:
+        df = pd.read_csv(uploaded_file)
+        dataset_status = "Uploaded"
+        latest_quarter = df.iloc[-1]["Quarter"]
+    else:
+        df = None
 
 st.title("Subscription Revenue Forecasting")
 
-st.write("This tool estimates subscription-based revenue using ARPU, customer base, inflation, and pricing change inputs, using multiple linear regression.")
+st.write(
+    "This tool estimates subscription-based revenue using ARPU, customer base, "
+    "inflation, and pricing change inputs, using multiple linear regression."
+)
 st.write("Enter forecast inputs below.")
 
-arpu = st.number_input("ARPU", value=250.0)
-customers = st.number_input("Customer Base (Millions)", value=500.0)
-inflation = st.number_input("Inflation (%)", value=2.8)
-tariff = st.selectbox("Tariff Hike / Pricing Change", [0, 1])
+with st.sidebar:
+
+    st.header(" Model Information")
+
+    st.write(f"**Company:** {company}")
+
+    if df is not None:
+
+        st.write(f"**Dataset:** {dataset_status}")
+
+        st.write(f"**Training Samples:** {len(df)}")
+
+        st.write(f"**Latest Quarter:** {latest_quarter}")
+
+        st.write("**Status:**  Ready")
+
+    else:
+
+        st.write("Upload a CSV to begin.")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    arpu = st.number_input("ARPU", value=250.0)
+    inflation = st.number_input("Inflation (%)", value=2.8)
+
+with col2:
+    customers = st.number_input("Customer Base (Millions)", value=500.0)
+    tariff = st.selectbox("Tariff Hike / Pricing Change", [0, 1])
 
 if st.button("Predict Revenue"):
     revenue = (
@@ -25,27 +82,17 @@ if st.button("Predict Revenue"):
         + (1328.559348 * tariff)
     )
 
-    st.success(f"Predicted Revenue: ₹ {revenue:,.2f} Cr")
+    st.metric(
+        label="Predicted Revenue",
+        value=f"₹ {revenue:,.2f} Cr"
+    )
 
 st.divider()
 
 show_data = st.checkbox("View Training Data")
 
-if show_data:
-    company = st.selectbox("Select company", ["Airtel", "Jio"])
+if show_data and df is not None:
 
-    if company == "Airtel":
-        st.subheader("Airtel Historical Data")
-        st.markdown(
-            "[Source: Airtel Investor Relations Quarterly Results](https://www.airtel.in/about-bharti/equity/results)"
-        )
+    st.subheader(f"{company} Historical Training Data")
 
-        st.dataframe(airtel_df, use_container_width=True)
-
-    elif company == "Jio":
-        st.subheader("Jio Historical Data")
-        st.markdown(
-            "[Source: Reliance Industries Investor Relations Quarterly Results](https://www.ril.com/investors/financial-reporting)"
-        )
-
-        st.dataframe(jio_df, use_container_width=True)
+    st.dataframe(df, use_container_width=True)
