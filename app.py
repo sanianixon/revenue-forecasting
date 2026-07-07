@@ -1,43 +1,27 @@
 import re
 import streamlit as st
 import pandas as pd
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Ridge
+import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="Subscription Revenue Forecasting", layout="wide")
 
 st.title("Subscription Revenue Forecasting")
 
 st.write(
-    "Select a company and forecast period. The app will automatically forecast ARPU "
-    "and customer base, then predict revenue using a regression model."
+    "Select a company and forecast period. The app forecasts ARPU and customer base, "
+    "then predicts revenue using a Ridge Regression model."
 )
 
 
 def quarter_to_number(quarter_text):
     match = re.search(r"Q([1-4])\s*FY(\d{2})", str(quarter_text))
-
     if not match:
         return None
 
     quarter = int(match.group(1))
     year = int(match.group(2))
-
     return ((year - 19) * 4) + quarter
-
-
-def forecast_value(df, column, target_quarter_no):
-    model = LinearRegression()
-    X = df[["Quarter No"]]
-    y = df[column]
-
-    model.fit(X, y)
-
-    prediction = model.predict(
-        pd.DataFrame({"Quarter No": [target_quarter_no]})
-    )[0]
-
-    return prediction
-
 
 def load_company_data(company):
     if company == "Airtel":
@@ -54,6 +38,19 @@ def load_company_data(company):
     return None, None
 
 
+def forecast_using_recent_growth(df, column, target_quarter_no, periods=4):
+    temp = df.sort_values("Quarter No").tail(periods + 1)
+
+    latest_value = temp[column].iloc[-1]
+    latest_quarter_no = temp["Quarter No"].iloc[-1]
+
+    avg_growth = temp[column].diff().dropna().mean()
+
+    quarters_ahead = target_quarter_no - latest_quarter_no
+
+    return latest_value + (avg_growth * quarters_ahead)
+
+
 company = st.selectbox("Select Company", ["Airtel", "Jio", "Custom Company"])
 
 df, dataset_status = load_company_data(company)
@@ -65,6 +62,8 @@ if df is not None:
         df["Quarter No"] = df["Quarter"].apply(quarter_to_number)
 
     df = df.dropna(subset=["Quarter No", "Revenue", "ARPU", "Customer Base"])
+    df = df[df["Quarter"] != "Q4 FY19"]
+    df = df.sort_values("Quarter No")
 
     latest_quarter = df.iloc[-1]["Quarter"] if not df.empty else "N/A"
 else:
@@ -79,7 +78,7 @@ with st.sidebar:
         st.write(f"**Dataset:** {dataset_status}")
         st.write(f"**Training Samples:** {len(df)}")
         st.write(f"**Latest Quarter:** {latest_quarter}")
-        st.write("**Algorithm:** Multiple Linear Regression")
+        st.write("**Algorithm:** Ridge Regression")
         st.write("**Status:** Ready")
     else:
         st.write("Upload a valid CSV to begin.")
@@ -137,20 +136,22 @@ if df is None or df.empty:
 
 else:
     if st.button("Predict Revenue"):
-        predicted_arpu = forecast_value(df, "ARPU", target_quarter_no)
-        predicted_customers = forecast_value(df, "Customer Base", target_quarter_no)
+        predicted_arpu = forecast_using_recent_growth(df, "ARPU", target_quarter_no)
+        predicted_customers = forecast_using_recent_growth(df, "Customer Base", target_quarter_no)
 
-        revenue_model = LinearRegression()
+        df["Revenue Driver"] = df["ARPU"] * df["Customer Base"]
 
-        X = df[["ARPU", "Customer Base"]]
+        X = df[["Revenue Driver"]]
         y = df["Revenue"]
 
+        revenue_model = Ridge(alpha=1.0)
         revenue_model.fit(X, y)
+
+        predicted_driver = predicted_arpu * predicted_customers
 
         input_data = pd.DataFrame(
             {
-                "ARPU": [predicted_arpu],
-                "Customer Base": [predicted_customers]
+                "Revenue Driver": [predicted_driver]
             }
         )
 
@@ -158,24 +159,64 @@ else:
 
         predicted_revenue = (
             base_revenue
-            - (977.0008011 * inflation)
-            + (1328.559348 * tariff)
+            - (596.87 * inflation)
+            + (1366.22 * tariff)
         )
 
-        st.subheader("Auto-Generated Forecast Inputs")
+        st.subheader("Forecast Result")
 
-        c1, c2 = st.columns(2)
+        r1, r2, r3 = st.columns(3)
 
-        with c1:
+        with r1:
+            st.metric(
+                label=f"Predicted Revenue for {target_period}",
+                value=f"₹ {predicted_revenue:,.2f} Cr"
+            )
+
+        with r2:
             st.metric("Predicted ARPU", f"₹ {predicted_arpu:.2f}")
 
-        with c2:
+        with r3:
             st.metric("Predicted Customer Base", f"{predicted_customers:.2f} Mn")
 
-        st.metric(
-            label=f"Predicted Revenue for {target_period}",
-            value=f"₹ {predicted_revenue:,.2f} Cr"
+        st.subheader("Model Details")
+
+        m1, m2 = st.columns(2)
+
+        with m1:
+            st.write("R² Score:", round(revenue_model.score(X, y), 4))
+
+        with m2:
+            st.write("Model Feature:", "ARPU × Customer Base")
+
+        st.subheader("Revenue Trend")
+
+        chart_df = df.copy()
+
+        fig, ax = plt.subplots(figsize=(10, 4))
+
+        ax.plot(
+            chart_df["Quarter"],
+            chart_df["Revenue"],
+            marker="o",
+            label="Historical Revenue"
         )
+
+        ax.scatter(
+            [target_period],
+            [predicted_revenue],
+            marker="o",
+            s=120,
+            label="Forecast"
+        )
+
+        ax.set_xlabel("Quarter")
+        ax.set_ylabel("Revenue (Cr)")
+        ax.set_title("Historical Revenue vs Forecast")
+        ax.tick_params(axis="x", rotation=45)
+        ax.legend()
+
+        st.pyplot(fig)
 
 
 st.divider()

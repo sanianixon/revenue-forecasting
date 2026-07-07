@@ -6,6 +6,19 @@ import pandas as pd
 
 RAW_DIR = "raw_reports"
 OUTPUT_CSV = "data/airtel_auto_training_data.csv"
+INFLATION_CSV = "data/inflation.csv"
+
+
+def quarter_to_number(quarter_text):
+    match = re.search(r"Q([1-4])\s*FY(\d{2})", str(quarter_text))
+
+    if not match:
+        return None
+
+    quarter = int(match.group(1))
+    year = int(match.group(2))
+
+    return ((year - 19) * 4) + quarter
 
 
 def extract_text_from_pdf(pdf_path):
@@ -90,18 +103,32 @@ def extract_metrics(pdf_path):
         print("Skipped:", filename)
         return None
 
-    revenue = float(revenue_match.group(1).replace(",", ""))
-    arpu = float(arpu_match.group(1))
-    customers = float(customers_match.group(1))
-
     return {
         "Company": "Airtel",
         "Quarter": quarter,
-        "Revenue": revenue,
-        "ARPU": arpu,
-        "Customer Base": customers,
+        "Revenue": float(revenue_match.group(1).replace(",", "")),
+        "ARPU": float(arpu_match.group(1)),
+        "Customer Base": float(customers_match.group(1)),
         "Source File": filename,
     }
+
+
+def add_inflation_and_tariff(df):
+    df["Quarter No"] = df["Quarter"].apply(quarter_to_number)
+
+    if os.path.exists(INFLATION_CSV):
+        inflation_df = pd.read_csv(INFLATION_CSV)
+        df = df.merge(inflation_df, on="Quarter", how="left")
+    else:
+        df["Inflation"] = None
+
+    q2_fy25_no = quarter_to_number("Q2 FY25")
+
+    df["Tariff"] = df["Quarter No"].apply(
+        lambda q: 1 if q and q > q2_fy25_no else 0
+    )
+
+    return df
 
 
 def build_dataset():
@@ -124,14 +151,28 @@ def build_dataset():
 
     df = pd.DataFrame(rows)
 
-    if not df.empty:
-        df = df.drop_duplicates(subset=["Quarter"], keep="last")
-        df.to_csv(OUTPUT_CSV, index=False)
-        print(f"\nSaved dataset to {OUTPUT_CSV}")
-        print(f"Rows saved: {len(df)}")
-    else:
+    if df.empty:
         print("No valid rows extracted.")
+        return
+
+    df = df.drop_duplicates(subset=["Quarter"], keep="last")
+
+    # Remove known bad historical extraction outlier
+    df = df[df["Quarter"] != "Q4 FY19"]
+
+    df = add_inflation_and_tariff(df)
+
+    df = df.sort_values("Quarter No")
+
+    df.to_csv(OUTPUT_CSV, index=False)
+
+    print(f"\nSaved dataset to {OUTPUT_CSV}")
+    print(f"Rows saved: {len(df)}")
 
 
-if __name__ == "__main__":
-    build_dataset()
+def build_dataset():
+    rows = []
+
+    for filename in os. listdir(RAW_DIR):
+        print(f"Processing file: {filename}")
+        print(f"Full path:")
