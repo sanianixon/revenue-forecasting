@@ -329,20 +329,16 @@ else:
     )
 
     if generate_forecast:
-        predicted_arpu = (
-            forecast_using_recent_growth(
-                df,
-                "ARPU",
-                target_quarter_no,
-            )
+        predicted_arpu = forecast_using_recent_growth(
+            df,
+            "ARPU",
+            target_quarter_no,
         )
 
-        predicted_customers = (
-            forecast_using_recent_growth(
-                df,
-                "Customer Base",
-                target_quarter_no,
-            )
+        predicted_customers = forecast_using_recent_growth(
+            df,
+            "Customer Base",
+            target_quarter_no,
         )
 
         model_df = df.copy()
@@ -371,16 +367,48 @@ else:
             }
         )
 
-        base_revenue = (
-            revenue_model.predict(
-                input_data
-            )[0]
-        )
+        base_revenue = revenue_model.predict(
+            input_data
+        )[0]
 
         predicted_revenue = (
             base_revenue
             - (596.87 * inflation)
             + (1366.22 * tariff)
+        )
+
+        # Approximate uncertainty range from historical residuals
+        historical_predictions = revenue_model.predict(X)
+        residuals = y - historical_predictions
+        rmse = (residuals.pow(2).mean()) ** 0.5
+
+        lower_bound = predicted_revenue - (1.96 * rmse)
+        upper_bound = predicted_revenue + (1.96 * rmse)
+
+        # Compare forecast with latest actual quarter
+        latest_actual_revenue = model_df.iloc[-1]["Revenue"]
+        latest_actual_quarter = model_df.iloc[-1]["Quarter"]
+
+        revenue_change = (
+            predicted_revenue
+            - latest_actual_revenue
+        )
+
+        revenue_change_percent = (
+            revenue_change
+            / latest_actual_revenue
+        ) * 100
+
+        change_direction = (
+            "Increase"
+            if revenue_change >= 0
+            else "Decrease"
+        )
+
+        change_symbol = (
+            "+"
+            if revenue_change >= 0
+            else ""
         )
 
         st.divider()
@@ -391,6 +419,7 @@ else:
         r1.metric(
             "Predicted Revenue",
             f"₹ {predicted_revenue:,.2f} Cr",
+            delta=f"{change_symbol}{revenue_change_percent:.2f}% vs {latest_actual_quarter}",
         )
 
         r2.metric(
@@ -408,6 +437,29 @@ else:
             target_period,
         )
 
+        st.markdown("#### Estimated Prediction Range")
+
+        range_col1, range_col2, range_col3 = st.columns(3)
+
+        range_col1.metric(
+            "Lower Estimate",
+            f"₹ {lower_bound:,.2f} Cr",
+        )
+
+        range_col2.metric(
+            "Central Forecast",
+            f"₹ {predicted_revenue:,.2f} Cr",
+        )
+
+        range_col3.metric(
+            "Upper Estimate",
+            f"₹ {upper_bound:,.2f} Cr",
+        )
+
+        st.caption(
+            "The estimated range is calculated using the model's historical "
+            "residual error and should be treated as an approximate uncertainty range."
+        )
         result_tab, trends_tab, model_tab = st.tabs(
             [
                 "Forecast Summary",
@@ -423,6 +475,8 @@ else:
                         "Company",
                         "Forecast Period",
                         "Predicted Revenue",
+                        "Change vs Latest Quarter",
+                        "Estimated Revenue Range",
                         "Predicted ARPU",
                         "Predicted Customer Base",
                         "Inflation",
@@ -431,23 +485,16 @@ else:
                     "Value": [
                         company,
                         target_period,
-                        (
-                            f"₹ {predicted_revenue:,.2f} Cr"
-                        ),
+                        f"₹ {predicted_revenue:,.2f} Cr",
+                        f"{change_symbol}{revenue_change_percent:.2f}% ({change_direction})",
+                        f"₹ {lower_bound:,.2f} Cr – ₹ {upper_bound:,.2f} Cr",
                         f"₹ {predicted_arpu:.2f}",
-                        (
-                            f"{predicted_customers:.2f} Mn"
-                        ),
+                        f"{predicted_customers:.2f} Mn",
                         f"{inflation:.1f}%",
-                        (
-                            "Applied"
-                            if tariff
-                            else "Not Applied"
-                        ),
+                        "Applied" if tariff else "Not Applied",
                     ],
                 }
             )
-
             st.dataframe(
                 summary_df,
                 use_container_width=True,
