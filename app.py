@@ -480,43 +480,30 @@ else:
             "The estimated range is calculated using the model's historical "
             "residual error and should be treated as an approximate uncertainty range."
         )
-        result_tab, trends_tab = st.tabs(
+        trends_tab, data_tab = st.tabs(
             [
-                "Forecast Summary",
                 "Trend Analysis",
+                "Historical Data",
             ]
         )
 
-        with result_tab:
-            summary_df = pd.DataFrame(
-                {
-                    "Metric": [
-                        "Company",
-                        "Forecast Period",
-                        "Predicted Revenue",
-                        "Change vs Latest Quarter",
-                        "Estimated Revenue Range",
-                        "Predicted ARPU",
-                        "Predicted Customer Base",
-                        "Inflation",
-                        "Tariff Impact",
-                    ],
-                    "Value": [
-                        company,
-                        target_period,
-                        f"₹ {predicted_revenue:,.2f} Cr",
-                        f"{change_symbol}{revenue_change_percent:.2f}% ({change_direction})",
-                        f"₹ {lower_bound:,.2f} Cr – ₹ {upper_bound:,.2f} Cr",
-                        f"₹ {predicted_arpu:.2f}",
-                        f"{predicted_customers:.2f} Mn",
-                        f"{inflation:.1f}%",
-                        "Applied" if tariff else "Not Applied",
-                    ],
-                }
-            )
+        with data_tab:
+            visible_columns = [
+                column
+                for column in [
+                    "Quarter",
+                    "Revenue",
+                    "ARPU",
+                    "Customer Base",
+                    "Inflation",
+                    "Tariff",
+                ]
+                if column in df.columns
+            ]
+
             st.dataframe(
-                summary_df,
-                use_container_width=True,
+                df[visible_columns],
+                width="stretch",
                 hide_index=True,
             )
 
@@ -590,28 +577,3 @@ else:
             st.pyplot(fig)
 
 st.divider()
-
-with st.expander(
-    "View Historical Training Data"
-):
-    if df is not None and not df.empty:
-        visible_columns = [
-            column
-            for column in [
-                "Quarter",
-                "Revenue",
-                "ARPU",
-                "Customer Base",
-                "Inflation",
-                "Tariff",
-            ]
-            if column in df.columns
-        ]
-
-        st.dataframe(
-            df[visible_columns],
-            use_container_width=True,
-            hide_index=True,
-        )
-    else:
-        st.write("No training data available.")
