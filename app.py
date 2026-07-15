@@ -226,7 +226,27 @@ with st.sidebar:
             f"**Latest Quarter:** {latest_quarter}"
         )
         st.write("**Algorithm:** Ridge Regression")
-        st.success("Ready")
+
+        if df is not None and not df.empty:
+            model_df_sidebar = df.copy()
+            model_df_sidebar["Revenue Driver"] = (
+                model_df_sidebar["ARPU"]
+                * model_df_sidebar["Customer Base"]
+            )
+
+            sidebar_X = model_df_sidebar[["Revenue Driver"]]
+            sidebar_y = model_df_sidebar["Revenue"]
+
+            sidebar_model = Ridge(alpha=1.0)
+            sidebar_model.fit(sidebar_X, sidebar_y)
+
+            sidebar_r2 = sidebar_model.score(
+                sidebar_X,
+                sidebar_y
+            )
+
+            st.write(f"**R² Score:** {sidebar_r2:.3f}")
+            st.success("Ready")
     else:
         st.info("Upload a valid CSV to begin.")
 
@@ -460,11 +480,10 @@ else:
             "The estimated range is calculated using the model's historical "
             "residual error and should be treated as an approximate uncertainty range."
         )
-        result_tab, trends_tab, model_tab = st.tabs(
+        result_tab, trends_tab = st.tabs(
             [
                 "Forecast Summary",
                 "Trend Analysis",
-                "Model Details",
             ]
         )
 
@@ -569,31 +588,6 @@ else:
             fig.tight_layout()
 
             st.pyplot(fig)
-
-        with model_tab:
-            score = revenue_model.score(X, y)
-
-            m1, m2, m3 = st.columns(3)
-
-            m1.metric(
-                "R² Score",
-                f"{score:.3f}",
-            )
-
-            m2.metric(
-                "Training Rows",
-                len(model_df),
-            )
-
-            m3.metric(
-                "Model",
-                "Ridge",
-            )
-
-            st.caption(
-                "Revenue is estimated using a "
-                "combined ARPU × Customer Base driver."
-            )
 
 st.divider()
 
