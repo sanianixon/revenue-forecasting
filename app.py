@@ -4,33 +4,125 @@ import pandas as pd
 from sklearn.linear_model import Ridge
 import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="Subscription Revenue Forecasting", layout="wide")
+st.set_page_config(
+    page_title="Subscription Revenue Forecasting",
+    layout="wide",
+)
+
+st.markdown(
+    """
+    <style>
+    .block-container {
+        padding-top: 1.5rem;
+        padding-bottom: 2rem;
+        max-width: 1250px;
+    }
+
+    div[data-testid="stMetric"] {
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 14px 16px;
+        background: #ffffff;
+    }
+
+    div.stButton > button {
+        width: 100%;
+        border-radius: 10px;
+        height: 46px;
+        font-weight: 600;
+    }
+
+    .section-copy {
+        color: #6b7280;
+        margin-top: -8px;
+        margin-bottom: 20px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown("""
+<style>
+
+.block-container {
+    padding-top: 1.6rem;
+    max-width: 1250px;
+}
+
+section[data-testid="stSidebar"]{
+    background-color:#F8FAFC;
+}
+
+div[data-testid="stMetric"]{
+    background:white;
+    border:1px solid #E5E7EB;
+    border-left:5px solid #2563EB;
+    border-radius:14px;
+    padding:18px;
+    box-shadow:0 1px 6px rgba(0,0,0,0.05);
+}
+
+div.stButton > button{
+    width:100%;
+    background:#2563EB;
+    color:white;
+    border:none;
+    border-radius:10px;
+    height:46px;
+    font-weight:600;
+}
+
+div.stButton > button:hover{
+    background:#1D4ED8;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 st.title("Subscription Revenue Forecasting")
-
-st.write(
-    "Select a company and forecast period. The app forecasts ARPU and customer base, "
-    "then predicts revenue using a Ridge Regression model."
+st.markdown(
+    """
+    <div class="section-copy">
+        Forecast subscription revenue using historical company performance,
+        recent ARPU and customer growth, and Ridge Regression.
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
 
 def quarter_to_number(quarter_text):
     match = re.search(r"Q([1-4])\s*FY(\d{2})", str(quarter_text))
+
     if not match:
         return None
 
     quarter = int(match.group(1))
     year = int(match.group(2))
+
     return ((year - 19) * 4) + quarter
+
 
 def load_company_data(company):
     if company == "Airtel":
-        return pd.read_csv("data/airtel_auto_training_data.csv"), "Automated"
+        return pd.read_csv(
+            "data/airtel_auto_training_data.csv"
+        ), "Automated"
 
     if company == "Jio":
-        return pd.read_csv("data/jio_data.csv"), "Manual"
+        return pd.read_csv(
+            "data/jio_data.csv"
+        ), "Manual"
 
-    uploaded_file = st.file_uploader("Upload Company CSV", type=["csv"])
+    uploaded_file = st.file_uploader(
+        "Upload Company CSV",
+        type=["csv"],
+        help=(
+            "Required columns: Quarter, Revenue, ARPU, "
+            "and Customer Base."
+        ),
+    )
 
     if uploaded_file is not None:
         return pd.read_csv(uploaded_file), "Uploaded"
@@ -38,34 +130,85 @@ def load_company_data(company):
     return None, None
 
 
-def forecast_using_recent_growth(df, column, target_quarter_no, periods=4):
-    temp = df.sort_values("Quarter No").tail(periods + 1)
+def forecast_using_recent_growth(
+    df,
+    column,
+    target_quarter_no,
+    periods=4,
+):
+    temp = (
+        df.sort_values("Quarter No")
+        .tail(periods + 1)
+        .copy()
+    )
 
     latest_value = temp[column].iloc[-1]
     latest_quarter_no = temp["Quarter No"].iloc[-1]
+    average_change = temp[column].diff().dropna().mean()
 
-    avg_growth = temp[column].diff().dropna().mean()
+    quarters_ahead = (
+        target_quarter_no - latest_quarter_no
+    )
 
-    quarters_ahead = target_quarter_no - latest_quarter_no
+    return latest_value + (
+        average_change * quarters_ahead
+    )
 
-    return latest_value + (avg_growth * quarters_ahead)
 
-
-company = st.selectbox("Select Company", ["Airtel", "Jio", "Custom Company"])
+company = st.selectbox(
+    "Company",
+    ["Airtel", "Jio", "Custom Company"],
+)
 
 df, dataset_status = load_company_data(company)
 
 if df is not None:
     df = df.copy()
 
+    required_columns = {
+        "Quarter",
+        "Revenue",
+        "ARPU",
+        "Customer Base",
+    }
+
+    missing_columns = required_columns - set(df.columns)
+
+    if missing_columns:
+        st.error(
+            "The dataset is missing: "
+            + ", ".join(sorted(missing_columns))
+        )
+        df = None
+
+if df is not None:
     if "Quarter No" not in df.columns:
-        df["Quarter No"] = df["Quarter"].apply(quarter_to_number)
+        df["Quarter No"] = df["Quarter"].apply(
+            quarter_to_number
+        )
 
-    df = df.dropna(subset=["Quarter No", "Revenue", "ARPU", "Customer Base"])
-    df = df[df["Quarter"] != "Q4 FY19"]
-    df = df.sort_values("Quarter No")
+    df = df.dropna(
+        subset=[
+            "Quarter No",
+            "Revenue",
+            "ARPU",
+            "Customer Base",
+        ]
+    )
 
-    latest_quarter = df.iloc[-1]["Quarter"] if not df.empty else "N/A"
+    df = df[
+        df["Quarter"] != "Q4 FY19"
+    ]
+
+    df = df.sort_values(
+        "Quarter No"
+    ).reset_index(drop=True)
+
+    latest_quarter = (
+        df.iloc[-1]["Quarter"]
+        if not df.empty
+        else "N/A"
+    )
 else:
     latest_quarter = "N/A"
 
@@ -76,86 +219,163 @@ with st.sidebar:
 
     if df is not None and not df.empty:
         st.write(f"**Dataset:** {dataset_status}")
-        st.write(f"**Training Samples:** {len(df)}")
-        st.write(f"**Latest Quarter:** {latest_quarter}")
+        st.write(
+            f"**Training Samples:** {len(df)}"
+        )
+        st.write(
+            f"**Latest Quarter:** {latest_quarter}"
+        )
         st.write("**Algorithm:** Ridge Regression")
-        st.write("**Status:** Ready")
+        st.success("Ready")
     else:
-        st.write("Upload a valid CSV to begin.")
+        st.info("Upload a valid CSV to begin.")
 
 
-st.subheader("Forecast Period")
+if df is not None and not df.empty:
+    latest_row = df.iloc[-1]
 
-col1, col2 = st.columns(2)
+    k1, k2, k3, k4 = st.columns(4)
 
-with col1:
-    forecast_quarter = st.selectbox("Select Quarter", ["Q1", "Q2", "Q3", "Q4"])
+    k1.metric(
+        "Latest Revenue",
+        f"₹ {latest_row['Revenue']:,.0f} Cr",
+    )
 
-with col2:
+    k2.metric(
+        "Latest ARPU",
+        f"₹ {latest_row['ARPU']:.0f}",
+    )
+
+    k3.metric(
+        "Customer Base",
+        f"{latest_row['Customer Base']:.1f} Mn",
+    )
+
+    k4.metric(
+        "Latest Quarter",
+        latest_quarter,
+    )
+
+st.divider()
+
+st.subheader("Forecast Setup")
+
+setup_left, setup_right = st.columns(2)
+
+with setup_left:
+    forecast_quarter = st.selectbox(
+        "Forecast Quarter",
+        ["Q1", "Q2", "Q3", "Q4"],
+    )
+
     forecast_year = st.number_input(
-        "Select Financial Year",
+        "Financial Year",
         min_value=2026,
         max_value=2035,
         value=2027,
-        step=1
+        step=1,
     )
 
-target_period = f"{forecast_quarter} FY{str(forecast_year)[-2:]}"
-target_quarter_no = quarter_to_number(target_period)
+with setup_right:
+    inflation = st.number_input(
+        "Expected Inflation (%)",
+        min_value=0.0,
+        max_value=20.0,
+        value=2.8,
+        step=0.1,
+    )
 
-st.subheader("Forecast Assumptions")
+    target_period = (
+        f"{forecast_quarter} "
+        f"FY{str(forecast_year)[-2:]}"
+    )
 
-inflation = st.number_input(
-    "Expected Inflation (%)",
-    value=2.8,
-    step=0.1
-)
+    target_quarter_no = quarter_to_number(
+        target_period
+    )
 
-q2_fy25_no = quarter_to_number("Q2 FY25")
-auto_tariff = 1 if target_quarter_no > q2_fy25_no else 0
+    q2_fy25_no = quarter_to_number(
+        "Q2 FY25"
+    )
 
-use_tariff = st.checkbox(
-    "Apply tariff hike impact",
-    value=bool(auto_tariff),
-    help="By default, tariff impact is applied for quarters after Q2 FY25."
-)
+    auto_tariff = (
+        1
+        if target_quarter_no > q2_fy25_no
+        else 0
+    )
 
-tariff = 1 if use_tariff else 0
+    use_tariff = st.toggle(
+        "Apply tariff hike impact",
+        value=bool(auto_tariff),
+        help=(
+            "Enabled by default for quarters "
+            "after Q2 FY25."
+        ),
+    )
 
-c3, c4 = st.columns(2)
-
-with c3:
-    st.metric("Inflation", f"{inflation:.1f}%")
-
-with c4:
-    st.metric("Tariff Impact", "Applied" if tariff == 1 else "Not Applied")
+    tariff = 1 if use_tariff else 0
 
 
 if df is None or df.empty:
-    st.warning("Please upload a valid CSV file to continue.")
+    st.warning(
+        "Please select a company with valid data "
+        "or upload a compatible CSV."
+    )
 
 else:
-    if st.button("Predict Revenue"):
-        predicted_arpu = forecast_using_recent_growth(df, "ARPU", target_quarter_no)
-        predicted_customers = forecast_using_recent_growth(df, "Customer Base", target_quarter_no)
+    generate_forecast = st.button(
+        "Generate Forecast",
+        type="primary",
+    )
 
-        df["Revenue Driver"] = df["ARPU"] * df["Customer Base"]
+    if generate_forecast:
+        predicted_arpu = (
+            forecast_using_recent_growth(
+                df,
+                "ARPU",
+                target_quarter_no,
+            )
+        )
 
-        X = df[["Revenue Driver"]]
-        y = df["Revenue"]
+        predicted_customers = (
+            forecast_using_recent_growth(
+                df,
+                "Customer Base",
+                target_quarter_no,
+            )
+        )
+
+        model_df = df.copy()
+
+        model_df["Revenue Driver"] = (
+            model_df["ARPU"]
+            * model_df["Customer Base"]
+        )
+
+        X = model_df[["Revenue Driver"]]
+        y = model_df["Revenue"]
 
         revenue_model = Ridge(alpha=1.0)
         revenue_model.fit(X, y)
 
-        predicted_driver = predicted_arpu * predicted_customers
+        predicted_driver = (
+            predicted_arpu
+            * predicted_customers
+        )
 
         input_data = pd.DataFrame(
             {
-                "Revenue Driver": [predicted_driver]
+                "Revenue Driver": [
+                    predicted_driver
+                ]
             }
         )
 
-        base_revenue = revenue_model.predict(input_data)[0]
+        base_revenue = (
+            revenue_model.predict(
+                input_data
+            )[0]
+        )
 
         predicted_revenue = (
             base_revenue
@@ -163,66 +383,194 @@ else:
             + (1366.22 * tariff)
         )
 
+        st.divider()
         st.subheader("Forecast Result")
 
-        r1, r2, r3 = st.columns(3)
+        r1, r2, r3, r4 = st.columns(4)
 
-        with r1:
-            st.metric(
-                label=f"Predicted Revenue for {target_period}",
-                value=f"₹ {predicted_revenue:,.2f} Cr"
+        r1.metric(
+            "Predicted Revenue",
+            f"₹ {predicted_revenue:,.2f} Cr",
+        )
+
+        r2.metric(
+            "Predicted ARPU",
+            f"₹ {predicted_arpu:.2f}",
+        )
+
+        r3.metric(
+            "Customer Base",
+            f"{predicted_customers:.2f} Mn",
+        )
+
+        r4.metric(
+            "Forecast Period",
+            target_period,
+        )
+
+        result_tab, trends_tab, model_tab = st.tabs(
+            [
+                "Forecast Summary",
+                "Trend Analysis",
+                "Model Details",
+            ]
+        )
+
+        with result_tab:
+            summary_df = pd.DataFrame(
+                {
+                    "Metric": [
+                        "Company",
+                        "Forecast Period",
+                        "Predicted Revenue",
+                        "Predicted ARPU",
+                        "Predicted Customer Base",
+                        "Inflation",
+                        "Tariff Impact",
+                    ],
+                    "Value": [
+                        company,
+                        target_period,
+                        (
+                            f"₹ {predicted_revenue:,.2f} Cr"
+                        ),
+                        f"₹ {predicted_arpu:.2f}",
+                        (
+                            f"{predicted_customers:.2f} Mn"
+                        ),
+                        f"{inflation:.1f}%",
+                        (
+                            "Applied"
+                            if tariff
+                            else "Not Applied"
+                        ),
+                    ],
+                }
             )
 
-        with r2:
-            st.metric("Predicted ARPU", f"₹ {predicted_arpu:.2f}")
+            st.dataframe(
+                summary_df,
+                use_container_width=True,
+                hide_index=True,
+            )
 
-        with r3:
-            st.metric("Predicted Customer Base", f"{predicted_customers:.2f} Mn")
+        with trends_tab:
+            metric_choice = st.radio(
+                "Trend",
+                [
+                    "Revenue",
+                    "ARPU",
+                    "Customer Base",
+                ],
+                horizontal=True,
+            )
 
-        st.subheader("Model Details")
+            fig, ax = plt.subplots(
+                figsize=(10, 4)
+            )
 
-        m1, m2 = st.columns(2)
+            ax.plot(
+                model_df["Quarter"],
+                model_df[metric_choice],
+                marker="o",
+                label=f"Historical {metric_choice}",
+            )
 
-        with m1:
-            st.write("R² Score:", round(revenue_model.score(X, y), 4))
+            if metric_choice == "Revenue":
+                ax.scatter(
+                    [target_period],
+                    [predicted_revenue],
+                    s=120,
+                    label="Forecast",
+                )
 
-        with m2:
-            st.write("Model Feature:", "ARPU × Customer Base")
+            elif metric_choice == "ARPU":
+                ax.scatter(
+                    [target_period],
+                    [predicted_arpu],
+                    s=120,
+                    label="Forecast",
+                )
 
-        st.subheader("Revenue Trend")
+            else:
+                ax.scatter(
+                    [target_period],
+                    [predicted_customers],
+                    s=120,
+                    label="Forecast",
+                )
 
-        chart_df = df.copy()
+            ax.set_xlabel("Quarter")
+            ax.set_ylabel(metric_choice)
+            ax.set_title(
+                f"{metric_choice} Trend"
+            )
+            ax.tick_params(
+                axis="x",
+                rotation=45,
+            )
+            ax.legend()
+            ax.grid(
+                alpha=0.2
+            )
 
-        fig, ax = plt.subplots(figsize=(10, 4))
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
 
-        ax.plot(
-            chart_df["Quarter"],
-            chart_df["Revenue"],
-            marker="o",
-            label="Historical Revenue"
-        )
+            ax.grid(alpha=0.2)
 
-        ax.scatter(
-            [target_period],
-            [predicted_revenue],
-            marker="o",
-            s=120,
-            label="Forecast"
-        )
+            fig.tight_layout()
 
-        ax.set_xlabel("Quarter")
-        ax.set_ylabel("Revenue (Cr)")
-        ax.set_title("Historical Revenue vs Forecast")
-        ax.tick_params(axis="x", rotation=45)
-        ax.legend()
+            st.pyplot(fig)
 
-        st.pyplot(fig)
+        with model_tab:
+            score = revenue_model.score(X, y)
 
+            m1, m2, m3 = st.columns(3)
+
+            m1.metric(
+                "R² Score",
+                f"{score:.3f}",
+            )
+
+            m2.metric(
+                "Training Rows",
+                len(model_df),
+            )
+
+            m3.metric(
+                "Model",
+                "Ridge",
+            )
+
+            st.caption(
+                "Revenue is estimated using a "
+                "combined ARPU × Customer Base driver."
+            )
 
 st.divider()
 
-show_data = st.checkbox("View Training Data")
+with st.expander(
+    "View Historical Training Data"
+):
+    if df is not None and not df.empty:
+        visible_columns = [
+            column
+            for column in [
+                "Quarter",
+                "Revenue",
+                "ARPU",
+                "Customer Base",
+                "Inflation",
+                "Tariff",
+            ]
+            if column in df.columns
+        ]
 
-if show_data and df is not None and not df.empty:
-    st.subheader(f"{company} Historical Training Data")
-    st.dataframe(df, use_container_width=True)
+        st.dataframe(
+            df[visible_columns],
+            use_container_width=True,
+            hide_index=True,
+        )
+    else:
+        st.write("No training data available.")
