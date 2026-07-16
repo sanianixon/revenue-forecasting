@@ -111,6 +111,13 @@ def quarter_to_number(quarter_text):
     return ((year - 19) * 4) + quarter
 
 
+def number_to_quarter(quarter_no):
+    year = 19 + ((int(quarter_no) - 1) // 4)
+    quarter = ((int(quarter_no) - 1) % 4) + 1
+
+    return f"Q{quarter} FY{year:02d}"
+
+
 def load_company_data(company):
     if company == "Airtel":
         return pd.read_csv(
@@ -419,11 +426,16 @@ if not model_comparison_df.empty:
         .reset_index(drop=True)
     )
 
-    recommended_model = (
-        model_comparison_df.iloc[0]["Model"]
-    )
+    best_rmse = model_comparison_df["RMSE"].min()
+
+    # Treat models as tied when their displayed RMSE values
+    # are equal to two decimal places.
+    best_models = model_comparison_df[
+        model_comparison_df["RMSE"].round(2)
+        == round(best_rmse, 2)
+    ]["Model"].tolist()
 else:
-    recommended_model = None
+    best_models = []
 
 model_name = st.selectbox(
     "Forecasting Model",
@@ -649,6 +661,57 @@ else:
             + (1366.22 * tariff)
         )
 
+        # Build a continuous forecast path for every quarter up to
+        # the requested target quarter. This is used by the graph only.
+        latest_quarter_no = int(model_df["Quarter No"].max())
+        forecast_rows = []
+
+        for future_quarter_no in range(
+            latest_quarter_no + 1,
+            target_quarter_no + 1,
+        ):
+            future_arpu = forecast_using_recent_growth(
+                df,
+                "ARPU",
+                future_quarter_no,
+            )
+
+            future_customers = forecast_using_recent_growth(
+                df,
+                "Customer Base",
+                future_quarter_no,
+            )
+
+            future_driver = future_arpu * future_customers
+
+            future_input = pd.DataFrame(
+                {
+                    "Revenue Driver": [future_driver]
+                }
+            )
+
+            future_base_revenue = revenue_model.predict(
+                future_input
+            )[0]
+
+            future_revenue = (
+                future_base_revenue
+                - (596.87 * inflation)
+                + (1366.22 * tariff)
+            )
+
+            forecast_rows.append(
+                {
+                    "Quarter No": future_quarter_no,
+                    "Quarter": number_to_quarter(
+                        future_quarter_no
+                    ),
+                    "Revenue": future_revenue,
+                }
+            )
+
+        forecast_df = pd.DataFrame(forecast_rows)
+
         # Approximate uncertainty range from historical residuals
         historical_predictions = revenue_model.predict(X)
         residuals = y - historical_predictions
@@ -777,18 +840,48 @@ else:
                 )
             )
 
-            fig.add_trace(
-                go.Scatter(
-                    x=[target_period],
-                    y=[predicted_revenue],
-                    mode="markers",
-                    name="Forecast",
-                    marker=dict(
-                        size=14,
-                        symbol="diamond",
-                    ),
+            if not forecast_df.empty:
+                forecast_x = [chart_df.iloc[-1]["Quarter"]] + (
+                    forecast_df["Quarter"].tolist()
                 )
-            )
+                forecast_y = [chart_df.iloc[-1]["Revenue"]] + (
+                    forecast_df["Revenue"].tolist()
+                )
+
+                fig.add_trace(
+                    go.Scatter(
+                        x=forecast_x,
+                        y=forecast_y,
+                        mode="lines+markers",
+                        name="Forecast Revenue",
+                        line=dict(
+                            width=3,
+                            dash="dash",
+                        ),
+                        marker=dict(
+                            size=9,
+                            symbol="diamond",
+                        ),
+                        hovertemplate=(
+                            "<b>%{x}</b><br>"
+                            "Revenue: ₹%{y:,.2f} Cr"
+                            "<extra></extra>"
+                        ),
+                    )
+                )
+            else:
+                fig.add_trace(
+                    go.Scatter(
+                        x=[target_period],
+                        y=[predicted_revenue],
+                        mode="markers",
+                        name="Forecast",
+                        marker=dict(
+                            size=14,
+                            symbol="diamond",
+                        ),
+                    )
+                )
 
             fig.update_layout(
                 title="Revenue Trend",
@@ -798,7 +891,7 @@ else:
                 height=450,
             )
 
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
         with comparison_tab:
             st.subheader(
@@ -860,9 +953,28 @@ else:
                     """
                 )
 
-            if recommended_model:
+            if len(best_models) == 1:
                 st.success(
-                    f"Recommended model: "
-                    f"{recommended_model} "
-                    f"(lowest backtest RMSE)"
+                    f"Recommended model: {best_models[0]} "
+                    "(lowest backtest RMSE)"
                 )
+
+            elif len(best_models) > 1:
+                model_names_text = " and ".join(best_models)
+
+                st.success(
+                    f"Recommended models: {model_names_text}. "
+                    "They have the same backtest RMSE when rounded "
+                    "to two decimal places."
+                )
+
+                if (
+                    "Linear Regression" in best_models
+                    and "Ridge Regression" in best_models
+                ):
+                    st.caption(
+                        "Linear Regression and Ridge Regression achieved "
+                        "equivalent backtest accuracy. Ridge Regression may "
+                        "be preferred when predictors are correlated because "
+                        "its coefficients are more stable."
+                    )
