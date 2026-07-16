@@ -53,7 +53,6 @@ The datasets contain historical values such as:
 5. Compare forecasting models using historical backtesting.
 6. Visualize historical and predicted revenue trends.
 
-## Model
 ## Forecasting Models
 
 ### Linear Regression
