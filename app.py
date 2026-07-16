@@ -1,8 +1,15 @@
 import re
 import streamlit as st
 import pandas as pd
-from sklearn.linear_model import Ridge
-import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.ensemble import RandomForestRegressor
+import plotly.graph_objects as go
+
+from sklearn.metrics import (
+    r2_score,
+    mean_absolute_error,
+    mean_squared_error,
+)
 
 st.set_page_config(
     page_title="Subscription Revenue Forecasting",
@@ -85,7 +92,7 @@ st.markdown(
     """
     <div class="section-copy">
         Forecast subscription revenue using historical company performance,
-        recent ARPU and customer growth, and Ridge Regression.
+        recent ARPU and customer growth, and model_name.
     </div>
     """,
     unsafe_allow_html=True,
@@ -212,6 +219,239 @@ if df is not None:
 else:
     latest_quarter = "N/A"
 
+model_names = [
+    "Linear Regression",
+    "Ridge Regression",
+    "Random Forest Regression",
+]
+
+comparison_rows = []
+backtest_results = {}
+
+def create_revenue_model(model_name):
+    if model_name == "Linear Regression":
+        return LinearRegression()
+
+    if model_name == "Ridge Regression":
+        return Ridge(alpha=1.0)
+
+    if model_name == "Random Forest Regression":
+        return RandomForestRegressor(
+            n_estimators=200,
+            max_depth=4,
+            min_samples_leaf=2,
+            random_state=42,
+        )
+
+    raise ValueError(f"Unsupported model: {model_name}")
+
+def run_backtest(
+    df,
+    model_name,
+    min_train_rows=12,
+):
+    """
+    Walk-forward backtesting.
+
+    For every test quarter, the model is trained only on
+    quarters occurring before that test quarter.
+    """
+
+    backtest_data = (
+        df.sort_values("Quarter No")
+        .reset_index(drop=True)
+        .copy()
+    )
+
+    results = []
+
+    for test_index in range(
+        min_train_rows,
+        len(backtest_data),
+    ):
+        train_df = backtest_data.iloc[
+            :test_index
+        ].copy()
+
+        actual_row = backtest_data.iloc[
+            test_index
+        ]
+
+        target_quarter_no = int(
+            actual_row["Quarter No"]
+        )
+
+        # Forecast inputs using only earlier quarters
+        predicted_arpu = forecast_using_recent_growth(
+            train_df,
+            "ARPU",
+            target_quarter_no,
+        )
+
+        predicted_customers = forecast_using_recent_growth(
+            train_df,
+            "Customer Base",
+            target_quarter_no,
+        )
+
+        # Build training feature
+        train_df["Revenue Driver"] = (
+            train_df["ARPU"]
+            * train_df["Customer Base"]
+        )
+
+        X_train = train_df[
+            ["Revenue Driver"]
+        ]
+
+        y_train = train_df["Revenue"]
+
+        model = create_revenue_model(
+            model_name
+        )
+
+        model.fit(
+            X_train,
+            y_train,
+        )
+
+        predicted_driver = (
+            predicted_arpu
+            * predicted_customers
+        )
+
+        prediction_input = pd.DataFrame(
+            {
+                "Revenue Driver": [
+                    predicted_driver
+                ]
+            }
+        )
+
+        predicted_revenue = model.predict(
+            prediction_input
+        )[0]
+
+        results.append(
+            {
+                "Quarter": actual_row["Quarter"],
+                "Quarter No": target_quarter_no,
+                "Actual Revenue": actual_row["Revenue"],
+                "Predicted Revenue": predicted_revenue,
+                "Error": (
+                    predicted_revenue
+                    - actual_row["Revenue"]
+                ),
+                "Absolute Error": abs(
+                    predicted_revenue
+                    - actual_row["Revenue"]
+                ),
+                "Error %": (
+                    (
+                        predicted_revenue
+                        - actual_row["Revenue"]
+                    )
+                    / actual_row["Revenue"]
+                )
+                * 100,
+            }
+        )
+
+    results_df = pd.DataFrame(results)
+
+    if len(results_df) < 2:
+        return results_df, None
+
+    actual = results_df["Actual Revenue"]
+    predicted = results_df["Predicted Revenue"]
+
+    metrics = {
+        "Model": model_name,
+        "Backtest R²": r2_score(
+            actual,
+            predicted,
+        ),
+        "MAE": mean_absolute_error(
+            actual,
+            predicted,
+        ),
+        "RMSE": mean_squared_error(
+            actual,
+            predicted,
+        ) ** 0.5,
+        "MAPE": (
+            (
+                (
+                    actual
+                    - predicted
+                ).abs()
+                / actual
+            ).mean()
+            * 100
+        ),
+        "Test Quarters": len(
+            results_df
+        ),
+    }
+
+    return results_df, metrics
+
+if df is not None and not df.empty:
+    for name in model_names:
+        result_df, metrics = run_backtest(
+            df,
+            name,
+        )
+
+        backtest_results[name] = result_df
+
+        if metrics is not None:
+            comparison_rows.append(metrics)
+
+model_comparison_df = pd.DataFrame(
+    comparison_rows
+)
+
+if not model_comparison_df.empty:
+    model_comparison_df = (
+        model_comparison_df
+        .sort_values("RMSE")
+        .reset_index(drop=True)
+    )
+
+    recommended_model = (
+        model_comparison_df.iloc[0]["Model"]
+    )
+else:
+    recommended_model = None
+
+model_name = st.selectbox(
+    "Forecasting Model",
+    [
+        "Linear Regression",
+        "Ridge Regression",
+        "Random Forest Regression",
+    ],
+    index=1,
+    help="Select the algorithm used to predict revenue.",
+)
+
+model_descriptions = {
+    "Linear Regression": (
+        "Simple baseline model that learns a linear relationship "
+        "between the revenue driver and revenue."
+    ),
+    "Ridge Regression": (
+        "Regularised linear model designed to produce more stable "
+        "coefficients when predictors are correlated."
+    ),
+    "Random Forest Regression": (
+        "Tree-based nonlinear model that captures more complex patterns, "
+        "but may be less reliable when forecasting beyond historical data."
+    ),
+}
+
+st.caption(model_descriptions[model_name])
 
 with st.sidebar:
     st.header("Model Information")
@@ -225,7 +465,7 @@ with st.sidebar:
         st.write(
             f"**Latest Quarter:** {latest_quarter}"
         )
-        st.write("**Algorithm:** Ridge Regression")
+        st.write(f"**Algorithm:** {model_name}")
 
         if df is not None and not df.empty:
             model_df_sidebar = df.copy()
@@ -237,7 +477,7 @@ with st.sidebar:
             sidebar_X = model_df_sidebar[["Revenue Driver"]]
             sidebar_y = model_df_sidebar["Revenue"]
 
-            sidebar_model = Ridge(alpha=1.0)
+            sidebar_model = create_revenue_model(model_name)
             sidebar_model.fit(sidebar_X, sidebar_y)
 
             sidebar_r2 = sidebar_model.score(
@@ -245,8 +485,20 @@ with st.sidebar:
                 sidebar_y
             )
 
-            st.write(f"**R² Score:** {sidebar_r2:.3f}")
-            st.success("Ready")
+    selected_metrics = model_comparison_df[
+        model_comparison_df["Model"]
+        == model_name
+    ]
+
+    if not selected_metrics.empty:
+        backtest_r2 = selected_metrics.iloc[0][
+            "Backtest R²"
+        ]
+
+        st.write(
+            f"**Backtest R²:** "
+            f"{backtest_r2:.3f}"
+        )
     else:
         st.info("Upload a valid CSV to begin.")
 
@@ -371,7 +623,7 @@ else:
         X = model_df[["Revenue Driver"]]
         y = model_df["Revenue"]
 
-        revenue_model = Ridge(alpha=1.0)
+        revenue_model = create_revenue_model(model_name)
         revenue_model.fit(X, y)
 
         predicted_driver = (
@@ -480,13 +732,13 @@ else:
             "The estimated range is calculated using the model's historical "
             "residual error and should be treated as an approximate uncertainty range."
         )
-        trends_tab, data_tab = st.tabs(
+        trends_tab, comparison_tab, data_tab = st.tabs(
             [
-                "Trend Analysis",
+                "Revenue Trend",
+                "Model Comparison",
                 "Historical Data",
             ]
         )
-
         with data_tab:
             visible_columns = [
                 column
@@ -508,72 +760,109 @@ else:
             )
 
         with trends_tab:
-            metric_choice = st.radio(
-                "Trend",
-                [
-                    "Revenue",
-                    "ARPU",
-                    "Customer Base",
-                ],
-                horizontal=True,
+
+            chart_df = df.copy()
+            chart_df = chart_df.sort_values("Quarter No")
+
+            fig = go.Figure()
+
+            fig.add_trace(
+                go.Scatter(
+                    x=chart_df["Quarter"],
+                    y=chart_df["Revenue"],
+                    mode="lines+markers",
+                    name="Historical Revenue",
+                    line=dict(width=3),
+                    marker=dict(size=8),
+                )
             )
 
-            fig, ax = plt.subplots(
-                figsize=(10, 4)
+            fig.add_trace(
+                go.Scatter(
+                    x=[target_period],
+                    y=[predicted_revenue],
+                    mode="markers",
+                    name="Forecast",
+                    marker=dict(
+                        size=14,
+                        symbol="diamond",
+                    ),
+                )
             )
 
-            ax.plot(
-                model_df["Quarter"],
-                model_df[metric_choice],
-                marker="o",
-                label=f"Historical {metric_choice}",
+            fig.update_layout(
+                title="Revenue Trend",
+                xaxis_title="Quarter",
+                yaxis_title="Revenue (Cr)",
+                hovermode="x unified",
+                height=450,
             )
 
-            if metric_choice == "Revenue":
-                ax.scatter(
-                    [target_period],
-                    [predicted_revenue],
-                    s=120,
-                    label="Forecast",
+            st.plotly_chart(fig, use_container_width=True)
+
+        with comparison_tab:
+            st.subheader(
+                "Walk-Forward Model Evaluation"
+            )
+
+            st.caption(
+                "Each quarter is predicted using only "
+                "the historical data available before it."
+            )
+
+            display_comparison = (
+                model_comparison_df.copy()
+            )
+
+            display_comparison[
+                "Backtest R²"
+            ] = display_comparison[
+                "Backtest R²"
+            ].round(3)
+
+            display_comparison[
+                "MAE"
+            ] = display_comparison[
+                "MAE"
+            ].round(2)
+
+            display_comparison[
+                "RMSE"
+            ] = display_comparison[
+                "RMSE"
+            ].round(2)
+
+            display_comparison[
+                "MAPE"
+            ] = display_comparison[
+                "MAPE"
+            ].round(2)
+
+            st.dataframe(
+                display_comparison,
+                width="stretch",
+                hide_index=True,
+            )
+
+
+            with st.expander("What do these metrics mean?"):
+                st.markdown(
+                    """
+                    **Backtest R²** – Shows how well the model predicts unseen historical quarters. Closer to 1 is better.
+
+                    **MAE** – The average prediction error in crore. Lower is better.
+
+                    **RMSE** – Similar to MAE, but large mistakes count more heavily. Lower is better.
+
+                    **MAPE** – The average prediction error as a percentage. Lower is better.
+
+                    **Test Quarters** – The number of historical quarters used during walk-forward backtesting.
+                    """
                 )
 
-            elif metric_choice == "ARPU":
-                ax.scatter(
-                    [target_period],
-                    [predicted_arpu],
-                    s=120,
-                    label="Forecast",
+            if recommended_model:
+                st.success(
+                    f"Recommended model: "
+                    f"{recommended_model} "
+                    f"(lowest backtest RMSE)"
                 )
-
-            else:
-                ax.scatter(
-                    [target_period],
-                    [predicted_customers],
-                    s=120,
-                    label="Forecast",
-                )
-
-            ax.set_xlabel("Quarter")
-            ax.set_ylabel(metric_choice)
-            ax.set_title(
-                f"{metric_choice} Trend"
-            )
-            ax.tick_params(
-                axis="x",
-                rotation=45,
-            )
-            ax.legend()
-            ax.grid(
-                alpha=0.2
-            )
-
-            ax.spines["top"].set_visible(False)
-            ax.spines["right"].set_visible(False)
-
-            ax.grid(alpha=0.2)
-
-            fig.tight_layout()
-
-            st.pyplot(fig)
-
-st.divider()
