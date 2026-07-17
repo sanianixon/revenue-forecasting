@@ -39,10 +39,7 @@ Regression Models
 
 - Linear Regression
 - Ridge Regression
-- Lasso Regression
-- ElasticNet Regression
 - Random Forest Regression
-- Gradient Boosting Regression
 
 Time-Series Models
 
