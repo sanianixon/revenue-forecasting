@@ -1,102 +1,241 @@
-# Revenue Forecasting Model
+# AI Business Forecasting Studio
 
-A Streamlit-based revenue forecasting application that uses Multiple Linear Regression to estimate future revenue for subscription-based telecom companies.
+An AI-powered business forecasting platform that combines machine learning, statistical forecasting, and real-time market intelligence to predict future subscription revenue.
 
-The project currently includes historical data from Airtel and Jio and allows users to explore training datasets, analyze trends, and generate revenue forecasts using business and market inputs.
+Unlike traditional forecasting tools that rely solely on historical financial data, this application introduces an AI-assisted workflow where users review current economic, regulatory, and industry developments before generating forecasts.
+
+---
+
+## Highlights
+
+- AI-assisted forecasting workflow
+- Multiple machine learning and time-series forecasting models
+- Real-time market intelligence integration
+- Historical walk-forward backtesting
+- Automatic model recommendation
+- Interactive Plotly dashboards
+- Streamlit Cloud deployment
+- Modular Python architecture
+
+---
 
 ## Features
 
-- Forecast quarterly subscription revenue using historical company performance.
-- Supports multiple forecasting algorithms:
-  - Linear Regression
-  - Ridge Regression
-  - Random Forest Regression
-- Interactive forecasting dashboard built with Streamlit.
-- Automatic ARPU and Customer Base forecasting using recent historical growth.
-- Revenue Driver feature combining ARPU and Customer Base.
-- Adjustable macroeconomic assumptions including inflation and tariff impact.
-- Walk-forward backtesting to evaluate forecasting accuracy on unseen historical quarters.
-- Model comparison using:
-  - Backtest R²
-  - RMSE
-  - MAE
-  - MAPE
-- Automatic model recommendation based on backtesting performance.
-- Interactive Plotly revenue trend visualization.
-- Prediction range estimation using historical residual error.
-- Support for Airtel, Jio and custom company datasets.
+### Forecast Workflow
 
-## Dataset
+The application guides users through a structured forecasting workflow:
 
-The current version uses publicly available quarterly financial and operational data from:
+1. Forecast Setup
+2. AI Market Intelligence
+3. Forecast Results
 
-* Bharti Airtel Investor Relations
-* Reliance Industries / Jio Investor Relations
+This separates forecast configuration, external business context, and model output into a clean decision-making process.
 
-The datasets contain historical values such as:
+---
 
-* Revenue
-* ARPU (Average Revenue Per User)
-* Subscriber Base
-* Business Metrics used for forecasting
+### Forecasting Models
 
-## Workflow
+Regression Models
 
-1. Select a company dataset.
-2. Choose the forecasting algorithm.
-3. Configure forecast assumptions:
-   - Forecast quarter
-   - Financial year
-   - Inflation
-   - Tariff impact
-4. Generate revenue forecast.
-5. Compare forecasting models using historical backtesting.
-6. Visualize historical and predicted revenue trends.
+- Linear Regression
+- Ridge Regression
+- Lasso Regression
+- ElasticNet Regression
+- Random Forest Regression
+- Gradient Boosting Regression
 
-## Forecasting Models
+Time-Series Models
 
-### Linear Regression
-Provides a simple baseline model for revenue prediction.
+- Prophet
 
-### Ridge Regression
-Uses L2 regularization to improve stability when predictor variables are highly correlated.
+Each model is evaluated using historical walk-forward validation before being recommended.
 
-### Random Forest Regression
-Captures non-linear relationships using an ensemble of decision trees and is included for performance comparison.
+---
 
-## Model Evaluation
+### AI Market Intelligence
 
-The application evaluates forecasting performance using walk-forward backtesting.
+Before generating a forecast, the application retrieves live business news related to the Indian telecom industry.
 
-Evaluation metrics include:
+Current News Query
+
+```text
+(India AND (telecom OR Airtel OR Jio OR "Vodafone Idea"
+OR TRAI OR spectrum OR tariff))
+OR
+(India AND (inflation OR GDP OR economy
+OR "repo rate" OR rupee OR "oil prices"))
+OR
+(India AND (war OR conflict OR sanctions OR geopolitical))
+```
+
+The application monitors developments across:
+
+- Telecom industry
+- Government policy
+- Economic indicators
+- Regulatory announcements
+- Geopolitical events
+
+This enables users to review current market conditions before generating forecasts.
+
+---
+
+### Forecast Controls
+
+Users can configure:
+
+- Forecasting approach
+- Forecasting model
+- Forecast quarter
+- Financial year
+- Expected inflation
+- Tariff hike assumptions
+
+---
+
+### Forecast Output
+
+For every forecast the application provides:
+
+- Predicted Revenue
+- Expected Revenue Growth
+- Prediction Range
+- Forecasted ARPU
+- Forecasted Customer Base
+- Revenue Trend Visualization
+
+---
+
+### Model Evaluation
+
+Every forecasting model is validated using walk-forward backtesting.
+
+Performance metrics include:
 
 - Backtest R²
 - RMSE
 - MAE
 - MAPE
 
-The dashboard automatically recommends the best-performing model based on historical forecasting accuracy.
+The application automatically recommends the best-performing forecasting model based on historical accuracy.
 
-## Tech Stack
+---
+
+### Interactive Dashboard
+
+- Revenue trend visualization
+- Historical vs Forecast comparison
+- Prediction confidence range
+- Interactive Plotly charts
+- Historical data explorer
+
+---
+
+## Dataset
+
+The project currently includes publicly available quarterly financial data from:
+
+- Bharti Airtel Investor Relations
+- Reliance Industries / Jio Investor Relations
+
+Historical features include:
+
+- Revenue
+- ARPU (Average Revenue Per User)
+- Customer Base
+- Inflation
+- Tariff Events
+
+---
+
+## Technology Stack
+
+### Frontend
+
+- Streamlit
+
+### Backend
 
 - Python
-- Streamlit
-- Pandas
+
+### Machine Learning
+
 - Scikit-learn
+- Prophet
+
+### Data Processing
+
+- Pandas
+- NumPy
+
+### Visualization
+
 - Plotly
+
+### External APIs
+
+- NewsAPI
+
+### Deployment
+
+- Streamlit Community Cloud
+
+---
+
+## Project Structure
+
+```text
+AI Business Forecasting Studio
+│
+├── app.py
+├── config.py
+├── data_loader.py
+│
+├── models
+│   ├── core.py
+│   ├── regression.py
+│   ├── prophet.py
+│   └── backtesting.py
+│
+├── services
+│   └── news_fetcher.py
+│
+├── ui
+│   ├── forecast_workspace.py
+│   ├── external_intelligence.py
+│   ├── navigation.py
+│   ├── sidebar.py
+│   └── styles.py
+│
+└── utils
+```
+
+---
 
 ## Live Demo
 
-Streamlit Deployment:
-
 https://revenue-forecasting-model.streamlit.app/
 
-## Future Improvements
+---
 
-* Quarter-based forecasting
-* Forecasted ARPU and subscriber growth estimation
-* Historical vs predicted performance charts
-* Model validation metrics
-* Additional telecom operators
-* Export forecast results
+## Future Roadmap
 
+- AI-based news sentiment analysis
+- Automatic forecast adjustment using market intelligence
+- Executive summary generation
+- Scenario analysis
+- Monte Carlo simulation
+- Export to PDF
+- Export to Excel
+- Multi-company forecasting
+- LLM-powered business insights
+
+---
+
+## Why this project?
+
+Traditional forecasting dashboards rely entirely on historical financial performance.
+
+This project extends conventional forecasting by integrating real-time external market intelligence into the forecasting workflow, helping users consider economic, regulatory, and geopolitical developments before making business decisions.
+
+The long-term goal is to bridge historical statistical forecasting with AI-assisted business decision support.
