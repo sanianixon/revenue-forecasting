@@ -1,16 +1,23 @@
 import os
 from datetime import datetime, timedelta
+from pathlib import Path
 
 import requests
+import streamlit as st
 from dotenv import load_dotenv
 
-from pathlib import Path
 
 ENV_PATH = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(dotenv_path=ENV_PATH)
 
-NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 NEWS_API_URL = "https://newsapi.org/v2/everything"
+
+
+def get_news_api_key():
+    try:
+        return st.secrets["NEWS_API_KEY"]
+    except Exception:
+        return os.getenv("NEWS_API_KEY")
 
 
 class NewsAPIError(Exception):
@@ -23,7 +30,7 @@ def fetch_external_news(page_size: int = 30) -> list[dict]:
     and geopolitical news.
     """
 
-    if not NEWS_API_KEY:
+    if not get_news_api_key():
         raise NewsAPIError(
             "NEWS_API_KEY is missing. Add it to your .env file."
         )
