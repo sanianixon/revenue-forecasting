@@ -29,10 +29,12 @@ def fetch_external_news(page_size: int = 30) -> list[dict]:
     Fetch recent India-related telecom, economic, regulatory,
     and geopolitical news.
     """
+    api_key = get_news_api_key()
 
-    if not get_news_api_key():
+    if not api_key:
         raise NewsAPIError(
-            "NEWS_API_KEY is missing. Add it to your .env file."
+            "NEWS_API_KEY is missing. Add it to Streamlit Secrets "
+            "or your local .env file."
         )
 
     yesterday = datetime.now() - timedelta(days=1)
@@ -53,7 +55,7 @@ def fetch_external_news(page_size: int = 30) -> list[dict]:
         "language": "en",
         "sortBy": "publishedAt",
         "pageSize": page_size,
-        "apiKey": NEWS_API_KEY,
+        "apiKey": api_key,
     }
 
     try:
