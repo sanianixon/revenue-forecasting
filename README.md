@@ -179,36 +179,6 @@ Historical features include:
 
 ---
 
-## Project Structure
-
-```text
-AI Business Forecasting Studio
-│
-├── app.py
-├── config.py
-├── data_loader.py
-│
-├── models
-│   ├── core.py
-│   ├── regression.py
-│   ├── prophet.py
-│   └── backtesting.py
-│
-├── services
-│   └── news_fetcher.py
-│
-├── ui
-│   ├── forecast_workspace.py
-│   ├── external_intelligence.py
-│   ├── navigation.py
-│   ├── sidebar.py
-│   └── styles.py
-│
-└── utils
-```
-
----
-
 ## Live Demo
 
 https://revenue-forecasting-model.streamlit.app/
