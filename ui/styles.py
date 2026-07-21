@@ -24,18 +24,35 @@ def apply_global_styles():
             box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
         }
 
+        /* Common styling for all buttons */
         div.stButton > button {
             width: 100%;
-            background: #2563EB;
-            color: white;
-            border: none;
             border-radius: 10px;
             height: 44px;
             font-weight: 600;
         }
 
-        div.stButton > button:hover {
+        /* Primary buttons */
+        div.stButton > button[kind="primary"] {
+            background: #2563EB;
+            color: white;
+            border: none;
+        }
+
+        div.stButton > button[kind="primary"]:hover {
             background: #1D4ED8;
+        }
+
+        /* Secondary buttons */
+        div.stButton > button[kind="secondary"] {
+            background: white;
+            color: #1F2937;
+            border: 1px solid #D1D5DB;
+        }
+
+        div.stButton > button[kind="secondary"]:hover {
+            background: #F8FAFC;
+            border-color: #2563EB;
         }
 
         div[data-testid="stTabs"] button {

@@ -180,6 +180,10 @@ def _render_results(
 
     output = st.session_state.get("forecast_output")
 
+    market_adjustment = output.get("market_adjustment", {})
+    adjustment_percent = market_adjustment.get("adjustment_percent", 0.0)
+    adjustment_applied = market_adjustment.get("applied", False)
+
     if not output:
         st.info(
             "Generate a forecast from Forecast Setup to view results."
@@ -215,7 +219,77 @@ def _render_results(
     )
 
     st.caption(f"FORECAST FOR {target_period}")
-    st.markdown(f"# ₹ {predicted_revenue:,.2f} Cr")
+
+    if adjustment_applied:
+        base_revenue = float(
+            target.get("Base Model Revenue", predicted_revenue)
+        )
+
+        adjustment_amount = predicted_revenue - base_revenue
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.metric(
+                "Base Model Forecast",
+                f"₹ {base_revenue:,.2f} Cr",
+            )
+
+        with col2:
+            st.markdown(
+                f"""
+        <div style="
+            border-left:4px solid #2F80ED;
+            border-radius:12px;
+            padding:18px 18px 14px 18px;
+            border:1px solid rgba(49,51,63,0.2);
+            height:115px;
+        ">
+
+        <div style="
+            font-size:14px;
+            color:#666;
+            margin-bottom:10px;
+        ">
+        Market Adjustment
+        </div>
+
+        <div style="
+            display:flex;
+            align-items:baseline;
+            gap:10px;
+        ">
+
+        <span style="
+            font-size:22px;
+            font-weight:700;
+        ">
+        ₹ {adjustment_amount:+,.2f} Cr
+        </span>
+
+        <span style="
+            font-size:13px;
+            color:#2F80ED;
+            font-weight:600;
+        ">
+        ({adjustment_percent:+.2f}%)
+        </span>
+
+        </div>
+
+        </div>
+        """,
+                unsafe_allow_html=True,
+            )
+
+        with col3:
+            st.metric(
+                "Final Adjusted Forecast",
+                f"₹ {predicted_revenue:,.2f} Cr",
+            )
+
+    else:
+        st.markdown(f"# ₹ {predicted_revenue:,.2f} Cr")
 
     delta_text = (
         f"{change_percent:+.2f}% vs {latest_actual_quarter}"
@@ -424,16 +498,36 @@ def _render_model_comparison(
             + " (lowest backtest RMSE)"
         )
 
+    with st.expander("Understanding the Evaluation Metrics"):
+        st.markdown(
+            """
+**Backtest R²**  
+Shows how much of the variation in historical revenue is explained by the
+model during backtesting. A value closer to 1 is better.
+
+**MAE — Mean Absolute Error**  
+The average absolute difference between actual and predicted revenue.
+Lower values are better.
+
+**RMSE — Root Mean Squared Error**  
+Measures prediction error while giving more weight to larger mistakes.
+Lower values are better.
+
+**MAPE — Mean Absolute Percentage Error**  
+The average prediction error expressed as a percentage of actual revenue.
+Lower values are better.
+
+**Test Quarters**  
+The number of historical quarters used as unseen test periods.
+"""
+        )
+
     selected_backtest = backtest_results.get(
         model_name,
         pd.DataFrame(),
     )
 
     if not selected_backtest.empty:
-        st.markdown(
-            f"#### {model_name} Backtest Results"
-        )
-
         backtest_columns = [
             column
             for column in [
@@ -446,8 +540,9 @@ def _render_model_comparison(
             if column in selected_backtest.columns
         ]
 
-        st.dataframe(
-            selected_backtest[backtest_columns].round(2),
-            use_container_width=True,
-            hide_index=True,
-        )
+        with st.expander(f"{model_name} Backtest Results"):
+            st.dataframe(
+                selected_backtest[backtest_columns].round(2),
+                use_container_width=True,
+                hide_index=True,
+            )
