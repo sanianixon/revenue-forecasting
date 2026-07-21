@@ -28,6 +28,7 @@ Instead of relying only on historical financial data, the platform analyses the 
 
 The application automatically processes Airtel quarterly reports, builds historical datasets, trains multiple forecasting models, evaluates their performance, and presents everything through an interactive Streamlit dashboard.
 
+You can try it out : https://revenue-forecasting-model.streamlit.app/
 ---
 
 ## Features
