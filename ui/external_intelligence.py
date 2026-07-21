@@ -254,7 +254,10 @@ def generate_forecast(df, use_market_intelligence):
 
         market_adjustment = {
             "market_score": 0.0,
+            "base_adjustment_percent": 0.0,
             "adjustment_percent": 0.0,
+            "decay_factor": 0.0,
+            "horizon_quarters": 0,
             "applied": False,
             "reason": "Market intelligence was not selected.",
         }
