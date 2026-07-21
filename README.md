@@ -34,13 +34,13 @@ The application automatically processes Airtel quarterly reports, builds histori
 
 | 🚀 Feature | Description |
 |------------|-------------|
-| 📄 Automated Report Processing | Extract financial metrics directly from quarterly reports |
-| 📊 Historical Dataset Generation | Build structured datasets automatically |
-| 🤖 Multiple Forecasting Models | Linear Regression, Ridge, Random Forest & Prophet |
-| 📈 Model Evaluation | Compare models using MAE, RMSE, MAPE & R² |
-| 📰 AI Market Intelligence | Analyse live business news using NewsAPI & Gemini |
-| 💡 Explainable Forecasting | AI explains why forecasts increase or decrease |
-| 🎨 Interactive Dashboard | Clean Streamlit interface for predictions |
+|  Automated Report Processing | Extract financial metrics directly from quarterly reports |
+|  Historical Dataset Generation | Build structured datasets automatically |
+|  Multiple Forecasting Models | Linear Regression, Ridge, Random Forest & Prophet |
+|  Model Evaluation | Compare models using MAE, RMSE, MAPE & R² |
+|  AI Market Intelligence | Analyse live business news using NewsAPI & Gemini |
+|  Explainable Forecasting | AI explains why forecasts increase or decrease |
+|  Interactive Dashboard | Clean Streamlit interface for predictions |
 
 ---
 
