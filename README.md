@@ -1,114 +1,148 @@
-AI Business Forecasting Studio
+<p align="center">
 
-AI-Powered Revenue Forecasting & Market Intelligence Platform
+# AI Business Forecasting Studio
 
-Automatically builds historical financial datasets from quarterly
-reports, compares multiple forecasting models, and enhances predictions
-using Google Gemini-powered market intelligence.
+### AI-Powered Revenue Forecasting & Market Intelligence Platform
 
-[Demo GIF] images/ai_business_forecasting_demo_fast.gif
+Automatically extracts financial data from quarterly reports, compares multiple forecasting models, and enhances predictions using **Google Gemini**.
 
-==================================================
+<img src="images/ai_business_forecasting_demo_fast.gif" width="100%"/>
 
-Overview
+<br>
 
-AI Business Forecasting Studio is an end-to-end revenue forecasting
-platform that combines machine learning, time-series forecasting, and
-generative AI to produce explainable business forecasts. Rather than
-relying only on historical financial data, the platform also considers
-current market developments using Google Gemini to estimate how recent
-events may influence future revenue.
+![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)
+![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?style=for-the-badge&logo=streamlit)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikitlearn)
+![Prophet](https://img.shields.io/badge/Prophet-Time_Series-4285F4?style=for-the-badge)
+![Google Gemini](https://img.shields.io/badge/Google-Gemini_AI-34A853?style=for-the-badge)
 
-The application automatically downloads and processes Airtel quarterly
-reports, extracts key financial metrics, generates structured historical
-datasets, trains multiple forecasting models, and presents results
-through an interactive Streamlit dashboard. Market news is retrieved
-through NewsAPI and analysed by Gemini to provide sentiment,
-opportunities, risks, and an estimated market impact score that
-complements the statistical forecast.
+</p>
 
-==================================================
+---
 
-Key Features
+## Overview
 
-• Automatic quarterly report extraction • Historical dataset generation
-• Linear Regression • Ridge Regression • Random Forest Regression •
-Prophet Time-Series Forecasting • Model comparison using MAE, RMSE, MAPE
-and R² • AI-powered market intelligence • Google Gemini integration •
-NewsAPI integration • Interactive Streamlit dashboard • Explainable
-revenue adjustments • Modular architecture for future expansion
+AI Business Forecasting Studio is an end-to-end forecasting application that combines **machine learning** with **AI-powered market intelligence**.
 
-==================================================
+Instead of relying only on historical financial data, the platform analyses the latest business news using **Google Gemini**, allowing forecasts to be adjusted using current market conditions while remaining fully explainable.
 
-Application Walkthrough
+The application automatically processes Airtel quarterly reports, builds historical datasets, trains multiple forecasting models, evaluates their performance, and presents everything through an interactive Streamlit dashboard.
 
-1.  Home / Forecast Configuration Image: images/homescreen.png
+---
 
-Users select the company, forecasting model, forecast horizon and
-business assumptions before generating predictions.
+## Features
 
-------------------------------------------------------------------------
+| 🚀 Feature | Description |
+|------------|-------------|
+| 📄 Automated Report Processing | Extract financial metrics directly from quarterly reports |
+| 📊 Historical Dataset Generation | Build structured datasets automatically |
+| 🤖 Multiple Forecasting Models | Linear Regression, Ridge, Random Forest & Prophet |
+| 📈 Model Evaluation | Compare models using MAE, RMSE, MAPE & R² |
+| 📰 AI Market Intelligence | Analyse live business news using NewsAPI & Gemini |
+| 💡 Explainable Forecasting | AI explains why forecasts increase or decrease |
+| 🎨 Interactive Dashboard | Clean Streamlit interface for predictions |
 
-2.  Model Comparison Image: images/model_comparison.png
+---
 
-Compare multiple forecasting algorithms using standard evaluation
-metrics to identify the best-performing model.
+# Dashboard
 
-------------------------------------------------------------------------
+## Forecast Configuration
 
-3.  AI Market Intelligence Image: images/AI_Market_Intelligence.png
+<img src="images/homescreen.png">
 
-Recent business news is analysed by Google Gemini to generate executive
-summaries, confidence scores, risks, opportunities and overall market
-sentiment.
+Choose the forecasting model, prediction horizon and business settings.
 
-------------------------------------------------------------------------
+---
 
-4.  Article Analysis Image: images/article.png
+## Model Comparison
 
-Each news article receives an AI-generated relevance assessment to help
-explain the market adjustment applied to the forecast.
+<img src="images/model_comparison.png">
 
-------------------------------------------------------------------------
+Compare every forecasting model before selecting the best performer.
 
-5.  Forecast Results Image: images/result.png
+---
 
-The final dashboard combines the baseline statistical forecast with
-AI-generated market intelligence to produce an explainable revenue
-prediction.
+## AI Market Intelligence
 
-==================================================
+<img src="images/AI_Market_Intelligence.png">
 
-Workflow
+Google Gemini summarises news, identifies opportunities and risks, and estimates overall market impact.
 
-Quarterly Reports ↓ PDF Extraction ↓ Historical Dataset ↓ Forecasting
-Models ↓ Baseline Forecast ↓ NewsAPI ↓ Google Gemini ↓ Market
-Intelligence ↓ Final Revenue Forecast
+---
 
-==================================================
+## Article Analysis
 
-Tech Stack
+<img src="images/article.png">
 
-Language: - Python
+Every retrieved article is individually analysed with AI to determine relevance and business impact.
 
-Dashboard: - Streamlit
+---
 
-Machine Learning: - Scikit-learn - Prophet
+## Final Forecast
 
-Artificial Intelligence: - Google Gemini
+<img src="images/result.png">
 
-External APIs: - NewsAPI
+The final prediction combines statistical forecasting with AI-generated market intelligence to produce an explainable revenue forecast.
 
-==================================================
+---
 
-Project Structure
+## Workflow
 
-app.py config.py data/ models/ services/ ui/ utils/ images/
+```text
+Quarterly Reports
+        ↓
+PDF Processing
+        ↓
+Historical Dataset
+        ↓
+Machine Learning Models
+        ↓
+Baseline Forecast
+        ↓
+NewsAPI
+        ↓
+Google Gemini
+        ↓
+Market Impact Analysis
+        ↓
+Final Revenue Prediction
+```
 
-==================================================
+---
 
-Installation
+## Technology Stack
 
+| Category | Technologies |
+|----------|--------------|
+| Language | Python |
+| Dashboard | Streamlit |
+| Machine Learning | Scikit-learn, Prophet |
+| AI | Google Gemini |
+| APIs | NewsAPI |
+
+---
+
+## Project Structure
+
+```text
+AI-Business-Forecasting-Studio/
+│
+├── app.py
+├── config.py
+├── data/
+├── models/
+├── services/
+├── ui/
+├── utils/
+├── images/
+└── requirements.txt
+```
+
+---
+
+## Installation
+
+```bash
 git clone https://github.com/sanianixon/revenue-forecasting.git
 
 cd revenue-forecasting
@@ -116,24 +150,30 @@ cd revenue-forecasting
 pip install -r requirements.txt
 
 streamlit run app.py
+```
 
-Create a .env file:
+Create a `.env` file:
 
-NEWS_API_KEY=your_newsapi_key GEMINI_API_KEY=your_gemini_api_key
+```env
+NEWS_API_KEY=your_newsapi_key
+GEMINI_API_KEY=your_gemini_api_key
+```
 
-==================================================
+---
 
-Future Improvements
+## Future Improvements
 
-• Support additional companies • Cloud deployment • Export reports as
-PDF • Additional forecasting models • More macroeconomic indicators •
-Improved historical validation
+- Support additional companies
+- Export executive PDF reports
+- Cloud deployment
+- More forecasting algorithms
+- Additional macroeconomic indicators
 
-==================================================
+---
 
-Author
+## Author
 
-Sania Nixon
+**Sania Nixon**
 
 GitHub: https://github.com/sanianixon
 
