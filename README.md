@@ -137,4 +137,4 @@ Sania Nixon
 
 GitHub: https://github.com/sanianixon
 
-LinkedIn: https://linkedin.com/in/sania-nixongit 
+LinkedIn: https://linkedin.com/in/sania-nixon
