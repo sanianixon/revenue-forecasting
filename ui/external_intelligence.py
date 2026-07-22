@@ -442,6 +442,32 @@ def _read_cached_market_result(fingerprint: str) -> dict | None:
     result = entry.get("result")
     return result if isinstance(result, dict) else None
 
+def _get_latest_cached_market_result():
+    cache = _load_persistent_cache()
+
+    latest_entry = None
+
+    for entry in cache.values():
+        if not isinstance(entry, dict):
+            continue
+
+        created_at = entry.get("created_at")
+        result = entry.get("result")
+
+        if not created_at or not isinstance(result, dict):
+            continue
+
+        if (
+            latest_entry is None
+            or created_at > latest_entry["created_at"]
+        ):
+            latest_entry = {
+                "created_at": created_at,
+                "result": result,
+            }
+
+    return latest_entry
+
 
 def _save_cached_market_result(
     fingerprint: str,
@@ -586,21 +612,54 @@ def render_external_intelligence(df):
             or "quota" in error_text
             or "resource_exhausted" in error_text
         ):
-            st.info(
-                "⚠ AI Market Intelligence is temporarily unavailable because the "
-                "Google Gemini API daily quota has been reached.\n\n"
-                "Revenue forecasting, model comparison, and all other features "
-                "continue to work normally. "
-                "The AI analysis will automatically resume once the quota resets."
-            )
-        else:
-            st.error(
-                "Market intelligence could not be generated.\n\n"
-                f"Details: {exc}"
-            )
+            latest_cache = _get_latest_cached_market_result()
 
-        st.session_state.pop("market_intelligence_score", None)
-        st.session_state.pop("market_intelligence_fingerprint", None)
+            if latest_cache:
+
+                created_at = latest_cache["created_at"]
+
+                try:
+                    created_at = datetime.fromisoformat(created_at).strftime(
+                        "%d %b %Y, %I:%M %p UTC"
+                    )
+                except Exception:
+                    pass
+
+                market_result = latest_cache["result"]
+
+                st.warning(
+                    f"""
+            ⚠ **Live AI analysis is temporarily unavailable because the Gemini API quota has been reached.**
+
+            Displaying the **last successfully generated AI market analysis**.
+
+            **Generated:** {created_at}
+
+            This analysis may not include the latest news articles.
+
+            **Try refreshing later to generate a new AI analysis using the latest market news.**
+            """
+                )
+
+                st.session_state["market_intelligence_score"] = market_result
+
+                _render_market_score(market_result)
+
+                scored_articles = market_result.get("articles", [])
+                _render_articles(scored_articles)
+
+            else:
+                st.info(
+                    "⚠ AI Market Intelligence is temporarily unavailable because the Google Gemini API quota has been reached. Please try again later."
+                )
+
+        if not (
+            "429" in error_text
+            or "quota" in error_text
+            or "resource_exhausted" in error_text
+        ):
+            st.session_state.pop("market_intelligence_score", None)
+            st.session_state.pop("market_intelligence_fingerprint", None)
 
     with st.expander("How is the Market Impact Score calculated?"):
         st.markdown(
