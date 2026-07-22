@@ -180,6 +180,15 @@ def _render_results(
 
     output = st.session_state.get("forecast_output")
 
+    if not output:
+        st.info("Generate a forecast from Forecast Setup to view results.")
+
+        if st.button("Go to Forecast Setup"):
+            go_to_page("setup")
+            st.rerun()
+
+        return
+
     market_adjustment = output.get("market_adjustment", {})
     adjustment_percent = market_adjustment.get("adjustment_percent", 0.0)
     adjustment_applied = market_adjustment.get("applied", False)

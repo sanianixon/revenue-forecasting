@@ -579,10 +579,26 @@ def render_external_intelligence(df):
         st.session_state.pop("market_intelligence_score", None)
         st.session_state.pop("market_intelligence_fingerprint", None)
     except Exception as exc:
-        st.error(
-            "Market intelligence could not be generated. "
-            f"Details: {exc}"
-        )
+        error_text = str(exc).lower()
+
+        if (
+            "429" in error_text
+            or "quota" in error_text
+            or "resource_exhausted" in error_text
+        ):
+            st.info(
+                "⚠ AI Market Intelligence is temporarily unavailable because the "
+                "Google Gemini API daily quota has been reached.\n\n"
+                "Revenue forecasting, model comparison, and all other features "
+                "continue to work normally. "
+                "The AI analysis will automatically resume once the quota resets."
+            )
+        else:
+            st.error(
+                "Market intelligence could not be generated.\n\n"
+                f"Details: {exc}"
+            )
+
         st.session_state.pop("market_intelligence_score", None)
         st.session_state.pop("market_intelligence_fingerprint", None)
 
