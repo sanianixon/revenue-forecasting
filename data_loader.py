@@ -14,7 +14,29 @@ REQUIRED_COLUMNS = {
 
 def load_company_data(company):
     if company == "Airtel":
-        return pd.read_csv("data/airtel_auto_training_data.csv"), "Automated"
+        company_df = pd.read_csv(
+            "data/airtel_auto_training_data.csv"
+        )
+
+        inflation_df = pd.read_csv(
+            "data/india_quarterly_inflation.csv"
+        )
+
+        # Remove the old manually entered inflation values.
+        company_df = company_df.drop(
+            columns=["Inflation"],
+            errors="ignore",
+        )
+
+        # Match each Airtel fiscal quarter with official inflation.
+        company_df = company_df.merge(
+            inflation_df[["Quarter", "Inflation"]],
+            on="Quarter",
+            how="left",
+            validate="many_to_one",
+        )
+
+        return company_df, "Automated"
 
     if company == "Jio":
         return pd.read_csv("data/jio_data.csv"), "Manual"

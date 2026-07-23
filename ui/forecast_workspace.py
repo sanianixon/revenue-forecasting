@@ -9,8 +9,9 @@ from config import (
     TREND_MODELS,
 )
 from models.core import PROPHET_AVAILABLE
+from services.inflation import calculate_inflation_baseline
 from ui.navigation import go_to_page
-from utils.quarters import quarter_to_number
+from utils.quarters import number_to_quarter, quarter_to_number
 
 
 def render_forecast_workspace(
@@ -77,49 +78,106 @@ def _render_setup(df):
 
     st.markdown("#### Target Period and Assumptions")
 
-    left, right = st.columns(2)
+    latest_quarter_no = int(df["Quarter No"].max())
+    first_forecast_quarter_no = latest_quarter_no + 1
 
-    with left:
-        forecast_quarter = st.selectbox(
-            "Forecast Quarter",
-            ["Q1", "Q2", "Q3", "Q4"],
-            key="forecast_quarter",
+    forecast_periods = [
+        number_to_quarter(quarter_no)
+        for quarter_no in range(
+            first_forecast_quarter_no,
+            first_forecast_quarter_no + 16,
+        )
+    ]
+
+    period_col, scenario_col, arpu_col, subscriber_col = st.columns(
+        [1.2, 1, 1, 1.2]
+    )
+
+    with period_col:
+        target_period = st.selectbox(
+            "Forecast through",
+            forecast_periods,
+            key="forecast_target_period",
+            help=(
+                f"Forecast periods begin after "
+                f"{df.iloc[-1]['Quarter']}."
+            ),
         )
 
-        forecast_year = st.number_input(
-            "Financial Year",
-            min_value=2026,
-            max_value=2035,
-            value=2027,
-            step=1,
-            key="forecast_year",
-        )
-
-    with right:
-        controls_disabled = approach == "Trend Based"
-
-        inflation = st.number_input(
-            "Expected Inflation (%)",
-            min_value=0.0,
-            max_value=20.0,
-            value=2.8,
-            step=0.1,
-            disabled=controls_disabled,
-            key="forecast_inflation",
-        )
-
-        target_period = (
-            f"{forecast_quarter} FY{str(forecast_year)[-2:]}"
-        )
         target_quarter_no = quarter_to_number(target_period)
-        q2_fy25_no = quarter_to_number("Q2 FY25")
 
-        use_tariff = st.toggle(
-            "Apply tariff hike impact",
-            value=target_quarter_no > q2_fy25_no,
-            disabled=controls_disabled,
-            key="forecast_tariff_toggle",
+    scenario_presets = {
+        "Conservative": {
+            "arpu": -2.0,
+            "subscribers": -1.5,
+        },
+        "Base Case": {
+            "arpu": 0.0,
+            "subscribers": 0.0,
+        },
+        "Optimistic": {
+            "arpu": 3.0,
+            "subscribers": 2.0,
+        },
+    }
+
+    with scenario_col:
+        scenario = st.selectbox(
+            "Business scenario",
+            list(scenario_presets.keys()),
+            index=1,
+            key="forecast_business_scenario",
         )
+
+    selected_preset = scenario_presets[scenario]
+
+    previous_scenario = st.session_state.get(
+        "_previous_business_scenario"
+    )
+
+    if previous_scenario != scenario:
+        st.session_state["forecast_arpu_adjustment"] = (
+            selected_preset["arpu"]
+        )
+        st.session_state["forecast_subscriber_adjustment"] = (
+            selected_preset["subscribers"]
+        )
+        st.session_state["_previous_business_scenario"] = scenario
+
+    controls_disabled = approach == "Trend Based"
+
+    with arpu_col:
+        arpu_adjustment = st.number_input(
+            "ARPU adjustment (%)",
+            min_value=-20.0,
+            max_value=30.0,
+            step=0.5,
+            disabled=controls_disabled,
+            key="forecast_arpu_adjustment",
+            help=(
+                "Optional adjustment to the model's predicted ARPU."
+            ),
+        )
+
+    with subscriber_col:
+        subscriber_adjustment = st.number_input(
+            "Subscriber adjustment (%)",
+            min_value=-20.0,
+            max_value=30.0,
+            step=0.5,
+            disabled=controls_disabled,
+            key="forecast_subscriber_adjustment",
+            help=(
+                "Optional adjustment to the model's predicted "
+                "customer base."
+            ),
+        )
+
+    inflation_summary = calculate_inflation_baseline()
+    inflation = float(inflation_summary["baseline"])
+
+    forecast_quarter = target_period.split()[0]
+    forecast_year = 2000 + int(target_period[-2:])
 
     if approach == "Trend Based":
         st.info(
@@ -127,11 +185,14 @@ def _render_setup(df):
             "and customer-base controls."
         )
 
-    latest_quarter_no = int(df["Quarter No"].max())
-
     if target_quarter_no <= latest_quarter_no:
+        first_valid_period = number_to_quarter(
+            latest_quarter_no + 1
+        )
+
         st.warning(
-            f"Choose a quarter after {df.iloc[-1]['Quarter']}."
+            f"Select a forecast period from "
+            f"{first_valid_period} onward."
         )
 
     next_disabled = (
@@ -152,23 +213,25 @@ def _render_setup(df):
             disabled=next_disabled,
             key="setup_next_button",
         ):
-            # IMPORTANT:
-            # Streamlit removes widget values when their page is no longer rendered.
-            # Save a permanent copy before leaving Forecast Setup.
+
             st.session_state["forecast_config"] = {
                 "approach": approach,
                 "model_name": model_name,
                 "forecast_quarter": forecast_quarter,
                 "forecast_year": int(forecast_year),
                 "inflation": float(inflation),
-                "use_tariff": bool(use_tariff),
+                "scenario": scenario,
+                "arpu_adjustment": float(arpu_adjustment),
+                "subscriber_adjustment": float(
+                    subscriber_adjustment
+                ),
                 "target_period": target_period,
                 "target_quarter_no": int(target_quarter_no),
             }
 
             go_to_page("ai")
             st.rerun()
-
+            
 
 def _render_results(
     df,
@@ -310,12 +373,68 @@ def _render_results(
         st.error(delta_text)
 
     if approach == "Regression Based":
+        required_driver_columns = {
+            "Predicted ARPU",
+            "Predicted Customer Base",
+        }
+
+        if not required_driver_columns.issubset(
+            forecast_df.columns
+        ):
+            st.warning(
+                "Forecast output is missing its ARPU or subscriber "
+                "calculation. Check models/core.py."
+            )
+            return
+
         st.write(
             f"**ARPU:** ₹ {float(target['Predicted ARPU']):,.2f}"
             f"  ·  **Customer Base:** "
             f"{float(target['Predicted Customer Base']):,.2f} Mn"
             f"  ·  **Model:** {model_name}"
         )
+
+        assumptions_applied = bool(
+            target.get("Assumptions Applied", False)
+        )
+
+        if assumptions_applied:
+            st.markdown("#### Business Assumption Impact")
+
+            impact_col1, impact_col2, impact_col3 = st.columns(3)
+
+            with impact_col1:
+                st.metric(
+                    "ARPU effect",
+                    (
+                        f"₹ {float(target['ARPU Revenue Effect']):+,.2f} "
+                        "Cr"
+                    ),
+                )
+
+            with impact_col2:
+                st.metric(
+                    "Subscriber effect",
+                    (
+                        f"₹ "
+                        f"{float(target['Subscriber Revenue Effect']):+,.2f} "
+                        "Cr"
+                    ),
+                )
+
+            with impact_col3:
+                st.metric(
+                    "Net assumption effect",
+                    (
+                        f"₹ {float(target['Net Assumption Effect']):+,.2f} "
+                        "Cr"
+                    ),
+                )
+
+            st.caption(
+                "Base forecast before analyst adjustments: "
+                f"₹ {float(target['Base Forecast Revenue']):,.2f} Cr"
+            )
     else:
         st.write(f"**Model:** {model_name}")
 

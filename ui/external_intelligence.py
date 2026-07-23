@@ -220,8 +220,13 @@ def generate_forecast(df, use_market_intelligence):
     target_period = config["target_period"]
     target_quarter_no = int(config["target_quarter_no"])
     inflation = float(config["inflation"])
-    use_tariff = bool(config["use_tariff"])
+    arpu_adjustment = float(
+        config.get("arpu_adjustment", 0.0)
+    )
 
+    subscriber_adjustment = float(
+        config.get("subscriber_adjustment", 0.0)
+    )
     latest_quarter_no = int(df["Quarter No"].max())
 
     if target_quarter_no <= latest_quarter_no:
@@ -237,8 +242,10 @@ def generate_forecast(df, use_market_intelligence):
                 model_name=model_name,
                 target_quarter_no=target_quarter_no,
                 inflation=inflation,
-                tariff=1 if use_tariff else 0,
+                arpu_adjustment=arpu_adjustment,
+                subscriber_adjustment=subscriber_adjustment,
             )
+
         else:
             future_quarters = list(
                 range(

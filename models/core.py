@@ -92,7 +92,8 @@ def build_regression_forecast(
     model_name,
     target_quarter_no,
     inflation,
-    tariff,
+    arpu_adjustment=0.0,
+    subscriber_adjustment=0.0,
 ):
     model_df = data.copy()
     model_df["Revenue Driver"] = (
@@ -113,24 +114,81 @@ def build_regression_forecast(
     rows = []
 
     for quarter_no in future_quarters:
-        predicted_arpu = forecast_using_recent_growth(
-            model_df, "ARPU", quarter_no
+        base_arpu = forecast_using_recent_growth(
+            model_df,
+            "ARPU",
+            quarter_no,
         )
-        predicted_customers = forecast_using_recent_growth(
-            model_df, "Customer Base", quarter_no
+
+        base_customers = forecast_using_recent_growth(
+            model_df,
+            "Customer Base",
+            quarter_no,
         )
-        predicted_driver = predicted_arpu * predicted_customers
+
+        adjusted_arpu = base_arpu * (
+            1 + arpu_adjustment / 100
+        )
+
+        adjusted_customers = base_customers * (
+            1 + subscriber_adjustment / 100
+        )
+
+        base_driver = base_arpu * base_customers
 
         base_revenue = float(
             model.predict(
-                pd.DataFrame({"Revenue Driver": [predicted_driver]})
+                pd.DataFrame(
+                    {"Revenue Driver": [base_driver]}
+                )
             )[0]
+        ) - (596.87 * inflation)
+
+        # Isolate the effect of changing ARPU.
+        arpu_adjusted_driver = (
+            adjusted_arpu * base_customers
         )
 
-        predicted_revenue = (
-            base_revenue
-            - (596.87 * inflation)
-            + (1366.22 * tariff)
+        arpu_adjusted_revenue = float(
+            model.predict(
+                pd.DataFrame(
+                    {
+                        "Revenue Driver": [
+                            arpu_adjusted_driver
+                        ]
+                    }
+                )
+            )[0]
+        ) - (596.87 * inflation)
+
+        # Apply both the ARPU and subscriber assumptions.
+        final_driver = (
+            adjusted_arpu * adjusted_customers
+        )
+
+        predicted_revenue = float(
+            model.predict(
+                pd.DataFrame(
+                    {"Revenue Driver": [final_driver]}
+                )
+            )[0]
+        ) - (596.87 * inflation)
+
+        arpu_revenue_effect = (
+            arpu_adjusted_revenue - base_revenue
+        )
+
+        subscriber_revenue_effect = (
+            predicted_revenue - arpu_adjusted_revenue
+        )
+
+        net_assumption_effect = (
+            predicted_revenue - base_revenue
+        )
+
+        assumptions_applied = (
+            arpu_adjustment != 0
+            or subscriber_adjustment != 0
         )
 
         rows.append(
@@ -138,8 +196,15 @@ def build_regression_forecast(
                 "Quarter No": quarter_no,
                 "Quarter": number_to_quarter(quarter_no),
                 "Predicted Revenue": predicted_revenue,
-                "Predicted ARPU": predicted_arpu,
-                "Predicted Customer Base": predicted_customers,
+                "Base Forecast Revenue": base_revenue,
+                "ARPU Revenue Effect": arpu_revenue_effect,
+                "Subscriber Revenue Effect": (
+                    subscriber_revenue_effect
+                ),
+                "Net Assumption Effect": net_assumption_effect,
+                "Predicted ARPU": adjusted_arpu,
+                "Predicted Customer Base": adjusted_customers,
+                "Assumptions Applied": assumptions_applied,
             }
         )
 
