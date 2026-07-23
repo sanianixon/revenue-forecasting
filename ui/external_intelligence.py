@@ -596,6 +596,20 @@ def render_external_intelligence(df):
                     "market_intelligence_fingerprint"
                 ] = fingerprint
 
+            fallback_from = market_result.get("fallback_from") or []
+            model_used = market_result.get("model_used")
+
+            if fallback_from and model_used:
+                unavailable_names = ", ".join(fallback_from)
+                st.warning(
+                    f"{unavailable_names} reached its rate limit. "
+                    f"This analysis was generated using {model_used}. "
+                    "The preferred model will be tried again automatically "
+                    "after its cooldown ends."
+                )
+            elif model_used:
+                st.caption(f"AI model: {model_used}")
+
             _render_market_score(market_result)
 
             scored_articles = market_result.get("articles") or articles

@@ -2,6 +2,7 @@ import os
 import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 import json
 import time
 
@@ -17,6 +18,17 @@ ENV_PATH = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(dotenv_path=ENV_PATH)
 
 NEWS_API_URL = "https://newsapi.org/v2/everything"
+MODEL_COOLDOWN_PATH = (
+    Path(__file__).resolve().parent.parent
+    / "data"
+    / "gemini_model_cooldowns.json"
+)
+
+GEMINI_MODELS = [
+    ("gemini-3.5-flash-lite", "Gemini 3.5 Flash Lite"),
+    ("gemini-3.1-flash-lite", "Gemini 3.1 Flash Lite"),
+    ("gemini-3.5-flash", "Gemini 3.5 Flash"),
+]
 
 
 POSITIVE_TERMS = {
@@ -87,6 +99,110 @@ def get_gemini_api_key():
 
 class NewsAPIError(Exception):
     """Raised when news collection fails."""
+
+
+def _load_model_cooldowns() -> dict:
+    if not MODEL_COOLDOWN_PATH.exists():
+        return {}
+
+    try:
+        with MODEL_COOLDOWN_PATH.open("r", encoding="utf-8") as cooldown_file:
+            payload = json.load(cooldown_file)
+        return payload if isinstance(payload, dict) else {}
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def _save_model_cooldowns(cooldowns: dict) -> None:
+    MODEL_COOLDOWN_PATH.parent.mkdir(parents=True, exist_ok=True)
+    temporary_path = MODEL_COOLDOWN_PATH.with_suffix(".tmp")
+
+    try:
+        with temporary_path.open("w", encoding="utf-8") as cooldown_file:
+            json.dump(cooldowns, cooldown_file, indent=2)
+        temporary_path.replace(MODEL_COOLDOWN_PATH)
+    except OSError:
+        temporary_path.unlink(missing_ok=True)
+
+
+def _active_model_cooldown(model_id: str) -> datetime | None:
+    cooldowns = _load_model_cooldowns()
+    blocked_until_text = cooldowns.get(model_id)
+
+    if not blocked_until_text:
+        return None
+
+    try:
+        blocked_until = datetime.fromisoformat(blocked_until_text)
+    except (TypeError, ValueError):
+        cooldowns.pop(model_id, None)
+        _save_model_cooldowns(cooldowns)
+        return None
+
+    if blocked_until <= datetime.now(timezone.utc):
+        cooldowns.pop(model_id, None)
+        _save_model_cooldowns(cooldowns)
+        return None
+
+    return blocked_until
+
+
+def _next_pacific_midnight_utc() -> datetime:
+    pacific = ZoneInfo("America/Los_Angeles")
+    now_pacific = datetime.now(pacific)
+    tomorrow = now_pacific.date() + timedelta(days=1)
+    reset_pacific = datetime.combine(
+        tomorrow,
+        datetime.min.time(),
+        tzinfo=pacific,
+    )
+    return reset_pacific.astimezone(timezone.utc)
+
+
+def _is_quota_error(exc: Exception) -> bool:
+    error_text = str(exc).lower()
+    return (
+        getattr(exc, "code", None) == 429
+        or "429" in error_text
+        or "resource_exhausted" in error_text
+    )
+
+
+def _quota_cooldown_until(exc: Exception) -> datetime:
+    error_text = str(exc).lower()
+    daily_markers = (
+        "perday",
+        "per_day",
+        "per day",
+        "requestsperday",
+        "rpd",
+        "daily",
+    )
+
+    if any(marker in error_text for marker in daily_markers):
+        return _next_pacific_midnight_utc()
+
+    retry_match = re.search(
+        r"retry(?:\s+in|\s+after)?\s*([0-9]+(?:\.[0-9]+)?)\s*s",
+        error_text,
+    )
+    retry_seconds = (
+        max(60, int(float(retry_match.group(1))) + 5)
+        if retry_match
+        else 60
+    )
+    return datetime.now(timezone.utc) + timedelta(seconds=retry_seconds)
+
+
+def _block_model_after_quota_error(
+    model_id: str,
+    exc: Exception,
+) -> datetime:
+    blocked_until = _quota_cooldown_until(exc)
+    cooldowns = _load_model_cooldowns()
+    cooldowns[model_id] = blocked_until.isoformat()
+    _save_model_cooldowns(cooldowns)
+    return blocked_until
 
 
 def _normalise_text(article: dict) -> str:
@@ -439,49 +555,80 @@ def _generate_gemini_market_result(
     prompt = _build_gemini_prompt(articles, company)
 
     response = None
+    selected_model_id = None
+    selected_model_name = None
+    unavailable_models = []
+    primary_retry_at = None
 
-    for attempt in range(3):
-        try:
-            response = client.models.generate_content(
-                model="gemini-3.5-flash",
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    tools=[
-                        {"url_context": {}},
-                    ],
-                    response_mime_type="application/json",
-                    response_schema=_gemini_response_schema(),
-                    temperature=0.1,
-                ),
-            )
-            break
+    for model_id, model_name in GEMINI_MODELS:
+        blocked_until = _active_model_cooldown(model_id)
 
-        except ServerError as exc:
-            if attempt == 2:
+        if blocked_until:
+            unavailable_models.append(model_name)
+            if model_id == GEMINI_MODELS[0][0]:
+                primary_retry_at = blocked_until
+            continue
+
+        model_hit_quota = False
+
+        for attempt in range(3):
+            try:
+                response = client.models.generate_content(
+                    model=model_id,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        tools=[
+                            {"url_context": {}},
+                        ],
+                        response_mime_type="application/json",
+                        response_schema=_gemini_response_schema(),
+                        temperature=0.1,
+                    ),
+                )
+                selected_model_id = model_id
+                selected_model_name = model_name
+                break
+
+            except ServerError as exc:
+                if attempt == 2:
+                    raise NewsAPIError(
+                        "Gemini is temporarily unavailable due to high demand. "
+                        "Please refresh and try again."
+                    ) from exc
+
+                time.sleep(5 * (attempt + 1))
+
+            except Exception as exc:
+                if _is_quota_error(exc):
+                    blocked_until = _block_model_after_quota_error(
+                        model_id,
+                        exc,
+                    )
+                    unavailable_models.append(model_name)
+                    model_hit_quota = True
+
+                    if model_id == GEMINI_MODELS[0][0]:
+                        primary_retry_at = blocked_until
+
+                    break
+
                 raise NewsAPIError(
-                    "Gemini is temporarily unavailable due to high demand. "
-                    "Please refresh and try again."
+                    f"Gemini market analysis failed: {exc}"
                 ) from exc
 
-            time.sleep(5 * (attempt + 1))
+        if response is not None:
+            break
 
-        except Exception as exc:
-            error_text = str(exc).lower()
-
-            if (
-                "429" in error_text
-                or "quota" in error_text
-                or "resource_exhausted" in error_text
-            ):
-                # Let quota errors reach the UI layer unchanged so it can
-                # display the cached-analysis fallback instead of a red error.
-                raise
-
-            raise NewsAPIError(
-                f"Gemini market analysis failed: {exc}"
-            ) from exc
+        if not model_hit_quota:
+            break
 
     if response is None or not response.text:
+        if unavailable_models:
+            raise NewsAPIError(
+                "Gemini API quota has been reached for every configured "
+                "analysis model."
+            )
+
         raise NewsAPIError(
             "Gemini returned an empty market analysis."
         )
@@ -492,6 +639,15 @@ def _generate_gemini_market_result(
         raise NewsAPIError(
             "Gemini returned an invalid structured response."
         ) from exc
+
+    result["_model_id"] = selected_model_id
+    result["_model_used"] = selected_model_name
+    result["_fallback_from"] = unavailable_models
+    result["_primary_retry_at"] = (
+        primary_retry_at.isoformat()
+        if primary_retry_at
+        else None
+    )
 
     retrieval_results = []
 
@@ -631,6 +787,10 @@ def score_market_articles(
         },
         "articles": scored_articles,
         "retrieval_results": retrieval_results,
+        "model_id": gemini_result.get("_model_id"),
+        "model_used": gemini_result.get("_model_used"),
+        "fallback_from": gemini_result.get("_fallback_from") or [],
+        "primary_retry_at": gemini_result.get("_primary_retry_at"),
     }
 
 
