@@ -466,6 +466,17 @@ def _generate_gemini_market_result(
             time.sleep(5 * (attempt + 1))
 
         except Exception as exc:
+            error_text = str(exc).lower()
+
+            if (
+                "429" in error_text
+                or "quota" in error_text
+                or "resource_exhausted" in error_text
+            ):
+                # Let quota errors reach the UI layer unchanged so it can
+                # display the cached-analysis fallback instead of a red error.
+                raise
+
             raise NewsAPIError(
                 f"Gemini market analysis failed: {exc}"
             ) from exc

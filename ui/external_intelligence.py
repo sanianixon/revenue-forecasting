@@ -479,6 +479,7 @@ def _save_cached_market_result(
     cache = _load_persistent_cache()
 
     cache[fingerprint] = {
+        "fingerprint": fingerprint,
         "company": company,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "article_urls": [
@@ -600,66 +601,74 @@ def render_external_intelligence(df):
             scored_articles = market_result.get("articles") or articles
             _render_articles(scored_articles)
 
-    except NewsAPIError as exc:
-        st.error(str(exc))
-        st.session_state.pop("market_intelligence_score", None)
-        st.session_state.pop("market_intelligence_fingerprint", None)
     except Exception as exc:
         error_text = str(exc).lower()
-
-        if (
+        is_quota_error = (
             "429" in error_text
             or "quota" in error_text
             or "resource_exhausted" in error_text
-        ):
+        )
+
+        if is_quota_error:
             latest_cache = _get_latest_cached_market_result()
 
             if latest_cache:
-
                 created_at = latest_cache["created_at"]
 
                 try:
                     created_at = datetime.fromisoformat(created_at).strftime(
                         "%d %b %Y, %I:%M %p UTC"
                     )
-                except Exception:
+                except (TypeError, ValueError):
                     pass
 
                 market_result = latest_cache["result"]
 
                 st.warning(
                     f"""
-            ⚠ **Live AI analysis is temporarily unavailable because the Gemini API quota has been reached.**
+⚠ **Live AI analysis could not be updated because the Gemini API quota has been reached.**
 
-            Displaying the **last successfully generated AI market analysis**.
+NewsAPI found a newer set of articles, but Gemini could not analyse them right now.
 
-            **Generated:** {created_at}
+Displaying the **last successfully generated market analysis** instead.
 
-            This analysis may not include the latest news articles.
+**Generated:** {created_at}
 
-            **Try refreshing later to generate a new AI analysis using the latest market news.**
-            """
+The analysis and articles shown below may differ from the latest articles retrieved by NewsAPI.
+
+**Try refreshing later to generate an updated analysis.**
+"""
                 )
 
                 st.session_state["market_intelligence_score"] = market_result
+                st.session_state.pop(
+                    "market_intelligence_fingerprint",
+                    None,
+                )
 
                 _render_market_score(market_result)
 
-                scored_articles = market_result.get("articles", [])
-                _render_articles(scored_articles)
-
+                fallback_articles = market_result.get("articles", [])
+                _render_articles(fallback_articles)
             else:
-                st.info(
-                    "⚠ AI Market Intelligence is temporarily unavailable because the Google Gemini API quota has been reached. Please try again later."
+                st.warning(
+                    "⚠ Live AI analysis could not be updated because the Gemini "
+                    "API quota has been reached. No previous successful analysis "
+                    "is available in this environment yet. Please try again later."
                 )
 
-        if not (
-            "429" in error_text
-            or "quota" in error_text
-            or "resource_exhausted" in error_text
-        ):
+                st.session_state.pop("market_intelligence_score", None)
+                st.session_state.pop(
+                    "market_intelligence_fingerprint",
+                    None,
+                )
+        else:
+            st.error(str(exc))
             st.session_state.pop("market_intelligence_score", None)
-            st.session_state.pop("market_intelligence_fingerprint", None)
+            st.session_state.pop(
+                "market_intelligence_fingerprint",
+                None,
+            )
 
     with st.expander("How is the Market Impact Score calculated?"):
         st.markdown(

@@ -206,5 +206,208 @@
         }
       ]
     }
+  },
+  "467d1dc57e43435ddc545dc024f13b4d5b7620a3275d995deaed51f6e79921a0": {
+    "company": "Airtel",
+    "created_at": "2026-07-22T06:36:40.500268+00:00",
+    "article_urls": [
+      "https://www.thehindubusinessline.com/news/world/tariff-policy-successful-more-measures-coming-to-replace-those-overturned-by-supreme-court-ustr-greer/article71248158.ece",
+      "https://economictimes.indiatimes.com/news/international/global-trends/tariff-policy-wildly-successful-more-coming-ustr-jamieson-greer/articleshow/132528454.cms",
+      "https://economictimes.indiatimes.com/news/international/world-news/brent-crude-oil-price-outlook-goldman-sach-predicts-oil-at-120-due-to-us-iran-conflict-hormuz-crisis-and-what-this-means-for-indian-economy/articleshow/132528146.cms",
+      "https://www.cnbc.com/2026/07/21/iran-war-update-five-things-to-know-after-resumption-of-hostilities.html",
+      "https://economictimes.indiatimes.com/wealth/invest/rs-1-lakh-investment-turns-into-rs-3-57-lakh-in-gold-bonds-sgb-2019-20-series-premature-redemption-date-today-check-if-you-need-to-pay-capital-gains-tax/articleshow/132528912.cms"
+    ],
+    "result": {
+      "market_score": -10.0,
+      "confidence": 45.0,
+      "summary": "The external news environment is mildly negative for Airtel, primarily driven by macroeconomic headwinds. While multiple articles were either inaccessible or irrelevant (covering US trade tariffs and Sovereign Gold Bonds), the successfully analyzed macroeconomic report warns of a potential surge in crude oil prices to $120/barrel. This poses indirect risks to Airtel by potentially driving up domestic inflation, weakening the rupee, and raising fuel costs for network operations.",
+      "risks": [
+        "Rising crude oil prices could fuel domestic inflation in India, potentially squeezing consumer discretionary spending and slowing down ARPU growth.",
+        "A weaker rupee resulting from a higher national import bill could increase the cost of importing telecom equipment for network expansion.",
+        "Higher fuel prices could increase operating costs, particularly for diesel-powered telecom tower sites."
+      ],
+      "opportunities": [],
+      "breakdown": {
+        "sentiment": -15.0,
+        "relevance": 15.0,
+        "importance": 12.0,
+        "recency": 100.0
+      },
+      "articles": [
+        {
+          "title": "$120 crude oil scare is back & India has plenty at stake",
+          "description": "Goldman Sachs has warned Brent crude could rise above $120 a barrel if disruptions in the Strait of Hormuz persist. For India, which imports most of its crude oil, a sustained oil price rally could increase the import bill, weaken the rupee, fuel inflation, w…",
+          "source": "The Times of India",
+          "published_at": "2026-07-21T04:46:49Z",
+          "url": "https://economictimes.indiatimes.com/news/international/world-news/brent-crude-oil-price-outlook-goldman-sach-predicts-oil-at-120-due-to-us-iran-conflict-hormuz-crisis-and-what-this-means-for-indian-economy/articleshow/132528146.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": -0.15,
+          "impact_reason": "A potential surge in crude oil prices to $120/barrel poses macroeconomic risks for India, including higher inflation, a weaker rupee, and increased fuel costs, which could indirectly pressure Airtel's operating expenses and consumer spending."
+        },
+        {
+          "title": "Tariff policy successful, more measures coming to replace those overturned by Supreme Court: USTR Greer",
+          "description": "USTR Greer highlights the success of US tariff policy and upcoming measures to enhance trade amid Supreme Court challenges.",
+          "source": "BusinessLine",
+          "published_at": "2026-07-21T06:21:57Z",
+          "url": "https://www.thehindubusinessline.com/news/world/tariff-policy-successful-more-measures-coming-to-replace-those-overturned-by-supreme-court-ustr-greer/article71248158.ece",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "The article could not be retrieved, so no impact can be determined."
+        },
+        {
+          "title": "Tariff policy wildly successful, more coming: USTR Jamieson Greer",
+          "description": "US Trade Representative Jamieson Greer believes tariff measures reduced trade deficits and encouraged business reshoring.  The Trump administration is planning new tariffs on countries using forced labour.  Greer indicated broad tariffs helped the US negotiat…",
+          "source": "The Times of India",
+          "published_at": "2026-07-21T05:24:26Z",
+          "url": "https://economictimes.indiatimes.com/news/international/global-trends/tariff-policy-wildly-successful-more-coming-ustr-jamieson-greer/articleshow/132528454.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "The article discusses US trade tariffs and import policies, which have no relevance to Indian telecom tariffs or Airtel's business."
+        },
+        {
+          "title": "Iran War update: Five things to know after the resumption of hostilities",
+          "description": "It's been 10 days since U.S. President Donald Trump declared the ceasefire with Iran \"over.\" Here's what you need to know about the conflict.",
+          "source": "CNBC",
+          "published_at": "2026-07-21T05:13:14Z",
+          "url": "https://www.cnbc.com/2026/07/21/iran-war-update-five-things-to-know-after-resumption-of-hostilities.html",
+          "retrieval_relevance": 3.6,
+          "impact_score": 0.0,
+          "impact_reason": "The article could not be retrieved, so no impact can be determined."
+        },
+        {
+          "title": "Rs 1 lakh investment turns into Rs 3.57 lakh in gold bonds: SGB 2019-20 Series premature redemption date today, check if you need to pay capital gains tax",
+          "description": "Sovereign gold bonds: The Reserve Bank of India has set the premature redemption price for SGB 2019-20 Series-VIII. This offers investors a significant absolute return of nearly 257 percent. Tax rules apply to capital gains on premature redemption of these bo…",
+          "source": "The Times of India",
+          "published_at": "2026-07-21T05:49:21Z",
+          "url": "https://economictimes.indiatimes.com/wealth/invest/rs-1-lakh-investment-turns-into-rs-3-57-lakh-in-gold-bonds-sgb-2019-20-series-premature-redemption-date-today-check-if-you-need-to-pay-capital-gains-tax/articleshow/132528912.cms",
+          "retrieval_relevance": 1.0,
+          "impact_score": 0.0,
+          "impact_reason": "The article is about Sovereign Gold Bonds premature redemption and tax rules, which is completely irrelevant to Airtel's telecom operations."
+        }
+      ],
+      "retrieval_results": [
+        {
+          "url": "https://www.thehindubusinessline.com/news/world/tariff-policy-successful-more-measures-coming-to-replace-those-overturned-by-supreme-court-ustr-greer/article71248158.ece",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_ERROR"
+        },
+        {
+          "url": "https://economictimes.indiatimes.com/news/international/global-trends/tariff-policy-wildly-successful-more-coming-ustr-jamieson-greer/articleshow/132528454.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://economictimes.com/news/international/world-news/brent-crude-oil-price-outlook-goldman-sach-predicts-oil-at-120-due-to-us-iran-conflict-hormuz-crisis-and-what-this-means-for-indian-economy/articleshow/132528051.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.cnbc.com/2026/07/21/iran-war-update-five-things-to-know-after-resumption-of-hostilities.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_ERROR"
+        },
+        {
+          "url": "https://m.economictimes.com/wealth/invest/rs-1-lakh-investment-turns-into-rs-3-57-lakh-in-gold-bonds-sgb-2019-20-series-premature-redemption-date-today-check-if-you-need-to-pay-capital-gains-tax/articleshow/132528912.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        }
+      ]
+    }
+  },
+  "da1654870059c6f77d6e333964fde8838a45ebd6d9019ea4dfa6de56299d2ba6": {
+    "fingerprint": "da1654870059c6f77d6e333964fde8838a45ebd6d9019ea4dfa6de56299d2ba6",
+    "company": "Airtel",
+    "created_at": "2026-07-22T07:32:13.966446+00:00",
+    "article_urls": [
+      "https://www.thehindubusinessline.com/news/world/tariff-policy-successful-more-measures-coming-to-replace-those-overturned-by-supreme-court-ustr-greer/article71248158.ece",
+      "https://economictimes.indiatimes.com/news/international/global-trends/tariff-policy-wildly-successful-more-coming-ustr-jamieson-greer/articleshow/132528454.cms",
+      "https://economictimes.indiatimes.com/news/economy/indicators/oil-prices-weak-monsoon-pose-biggest-risks-to-indias-fy27-gdp-growth-says-imf/articleshow/132530097.cms",
+      "https://economictimes.indiatimes.com/markets/forex/rupee-firms-as-oil-retreats-traders-gauge-flow-momentum-under-rbi-measures/articleshow/132530051.cms",
+      "https://www.livemint.com/industry/media/film-set-safety-love-war-film-set-accident-film-shoot-safety-film-set-safety-act-workplace-safety-set-audits-11784550563993.html"
+    ],
+    "result": {
+      "market_score": -5.0,
+      "confidence": 40.0,
+      "summary": "The retrieved articles do not contain any direct news regarding Airtel, telecom tariffs, spectrum, or subscriber metrics. The only relevant development is a general macroeconomic warning from the IMF regarding risks to India's GDP growth and inflation due to high oil prices and a weak monsoon. This could indirectly pressure consumer spending, particularly in rural areas, potentially slowing Airtel's ARPU growth. Other retrieved articles regarding US trade tariffs and short-term rupee fluctuations are irrelevant or have no direct impact on Airtel's next-quarter revenue.",
+      "risks": [
+        "Macroeconomic headwinds such as rising oil prices and a weak monsoon could stoke inflation and pressure rural consumer discretionary spending, potentially slowing down Airtel's ARPU growth."
+      ],
+      "opportunities": [],
+      "breakdown": {
+        "sentiment": -10.0,
+        "relevance": 15.0,
+        "importance": 15.0,
+        "recency": 100.0
+      },
+      "articles": [
+        {
+          "title": "Oil prices, weak monsoon pose biggest risks to India's FY27 GDP growth, says IMF",
+          "description": "India's economic growth faces significant risks from a widening Middle East conflict.  Rising oil prices and a potentially weak monsoon pose challenges for the nation.  The International Monetary Fund has slightly adjusted its growth forecasts for upcoming ye…",
+          "source": "The Times of India",
+          "published_at": "2026-07-21T06:55:38Z",
+          "url": "https://economictimes.indiatimes.com/news/economy/indicators/oil-prices-weak-monsoon-pose-biggest-risks-to-indias-fy27-gdp-growth-says-imf/articleshow/132530097.cms",
+          "retrieval_relevance": 3.8,
+          "impact_score": -0.1,
+          "impact_reason": "The IMF warns of risks to India's GDP growth and inflation from high oil prices and a weak monsoon, which could indirectly pressure rural consumer spending and Airtel's ARPU growth."
+        },
+        {
+          "title": "Tariff policy successful, more measures coming to replace those overturned by Supreme Court: USTR Greer",
+          "description": "USTR Greer highlights the success of US tariff policy and upcoming measures to enhance trade amid Supreme Court challenges.",
+          "source": "BusinessLine",
+          "published_at": "2026-07-21T06:21:57Z",
+          "url": "https://www.thehindubusinessline.com/news/world/tariff-policy-successful-more-measures-coming-to-replace-those-overturned-by-supreme-court-ustr-greer/article71248158.ece",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "The article could not be retrieved, and its title indicates it is about US trade tariffs, which is irrelevant to Airtel."
+        },
+        {
+          "title": "Tariff policy wildly successful, more coming: USTR Jamieson Greer",
+          "description": "US Trade Representative Jamieson Greer believes tariff measures reduced trade deficits and encouraged business reshoring.  The Trump administration is planning new tariffs on countries using forced labour.  Greer indicated broad tariffs helped the US negotiat…",
+          "source": "The Times of India",
+          "published_at": "2026-07-21T05:24:26Z",
+          "url": "https://economictimes.indiatimes.com/news/international/global-trends/tariff-policy-wildly-successful-more-coming-ustr-jamieson-greer/articleshow/132528454.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "The article discusses US trade tariff policies under USTR Jamieson Greer, which has no relevance to Airtel or the Indian telecom sector."
+        },
+        {
+          "title": "Rupee firms as oil retreats, traders gauge flow momentum under RBI measures",
+          "description": "The Indian rupee strengthened on Tuesday, benefiting from falling oil prices. Optimism over potential mediation in the U.S.-Iran conflict also aided sentiment. Strong inflows tied to the central bank's recent policy measures further supported the currency. Th…",
+          "source": "The Times of India",
+          "published_at": "2026-07-21T06:52:54Z",
+          "url": "https://economictimes.indiatimes.com/markets/forex/rupee-firms-as-oil-retreats-traders-gauge-flow-momentum-under-rbi-measures/articleshow/132530051.cms",
+          "retrieval_relevance": 3.8,
+          "impact_score": 0.0,
+          "impact_reason": "Short-term fluctuations in the Indian rupee and oil prices have negligible direct impact on Airtel's next-quarter subscription revenue."
+        },
+        {
+          "title": "Why India's film industry needs a dedicated set safety law",
+          "description": "The death of a worker on the Love &amp; War set has revived demands for a dedicated film safety law as experts push for mandatory audits, risk assessments and stronger accountability.",
+          "source": "Livemint",
+          "published_at": "2026-07-21T07:08:48Z",
+          "url": "https://www.livemint.com/industry/media/film-set-safety-love-war-film-set-accident-film-shoot-safety-film-set-safety-act-workplace-safety-set-audits-11784550563993.html",
+          "retrieval_relevance": 2.8,
+          "impact_score": 0.0,
+          "impact_reason": "The article could not be retrieved, and its title indicates it is about film set safety laws, which is irrelevant to Airtel."
+        }
+      ],
+      "retrieval_results": [
+        {
+          "url": "https://www.thehindubusinessline.com/news/world/tariff-policy-successful-more-measures-coming-to-replace-those-overturned-by-supreme-court-ustr-greer/article71248158.ece",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_ERROR"
+        },
+        {
+          "url": "https://economictimes.indiatimes.com/news/international/global-trends/tariff-policy-wildly-successful-more-coming-ustr-jamieson-greer/articleshow/132528454.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/news/economy/indicators/oil-prices-weak-monsoon-pose-biggest-risks-to-indias-fy27-gdp-growth-says-imf/articleshow/132530097.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/markets/forex/rupee-firms-as-oil-retreats-traders-gauge-flow-momentum-under-rbi-measures/articleshow/132530051.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.livemint.com/industry/media/film-set-safety-love-war-film-set-accident-film-shoot-safety-film-set-safety-act-workplace-safety-set-audits-11784550563993.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_PAYWALL"
+        }
+      ]
+    }
   }
 }
