@@ -409,5 +409,968 @@
         }
       ]
     }
+  },
+  "8d9b51aa637dee576adbee896ee1e6646f4e6c9b468ab4c77362dc9e17a57b31": {
+    "fingerprint": "8d9b51aa637dee576adbee896ee1e6646f4e6c9b468ab4c77362dc9e17a57b31",
+    "company": "Airtel",
+    "created_at": "2026-07-23T07:14:27.561082+00:00",
+    "article_urls": [
+      "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/trumps-200-drug-tariff-plan-is-indias-pharma-industry-about-to-face-an-economic-storm/articleshow/132552962.cms",
+      "https://financialpost.com/pmn/business-pmn/rubio-jaishankar-urge-trade-deal-despite-pharma-tariff-threat",
+      "https://www.hurriyetdailynews.com/tariffs-on-brazil-take-effect-as-us-readies-fresh-flurry-224642",
+      "https://economictimes.indiatimes.com/wealth/invest/sbi-hdfc-pnb-icici-canara-axis-bank-fcnrb-3-year-fd-interest-rate-up-to-6-5-check-rbi-deposit-data-and-key-details/articleshow/132551098.cms",
+      "https://biztoc.com/x/6c05f7b8ac755f57"
+    ],
+    "result": {
+      "market_score": 0.0,
+      "confidence": 95.0,
+      "summary": "None of the provided articles contain any information relevant to Airtel, the Indian telecom sector, ARPU, subscribers, or telecom regulations. The articles focus on unrelated topics such as US pharmaceutical tariffs, US-Brazil trade, Indian bank deposit rates, and energy policies. Consequently, the external news environment has a neutral impact on Airtel's next-quarter revenue.",
+      "risks": [],
+      "opportunities": [],
+      "breakdown": {
+        "sentiment": 0.0,
+        "relevance": 0.0,
+        "importance": 0.0,
+        "recency": 100.0
+      },
+      "articles": [
+        {
+          "title": "Trump's 200% drug tariff plan: Is India's pharma industry about to face an economic storm?",
+          "description": "The United States is set to implement a phased approach to tariffs on generic drug imports, beginning at zero percent and escalating to one hundred percent, eventually reaching two hundred percent by 2028. This strategy is designed to foster the onshoring of …",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T07:00:39Z",
+          "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/trumps-200-drug-tariff-plan-is-indias-pharma-industry-about-to-face-an-economic-storm/articleshow/132552962.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "The article discusses US tariffs on India's pharmaceutical industry, which has no relevance to Airtel's telecom business."
+        },
+        {
+          "title": "Rubio, Jaishankar Urge Trade Deal Despite Pharma Tariff Threat",
+          "description": "US Secretary of State Marco Rubio and his Indian counterpart S. Jaishankar reinforced the importance of concluding an interim trade agreement between their two countries during a meeting in Manila on Wednesday.",
+          "source": "Financial Post",
+          "published_at": "2026-07-22T06:45:27Z",
+          "url": "https://financialpost.com/pmn/business-pmn/rubio-jaishankar-urge-trade-deal-despite-pharma-tariff-threat",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "The article focuses on US-India trade relations and pharmaceutical tariffs, which does not impact Airtel's telecom operations or revenue."
+        },
+        {
+          "title": "Tariffs on Brazil take effect as US readies fresh flurry",
+          "description": "A new U.S. tariff targeting Brazil took effect on July 22, while Washington’s other trading partners brace for a fresh volley of duties as President Donald Trump’s temporary global levies expire this week.",
+          "source": "Hurriyet Daily News",
+          "published_at": "2026-07-22T06:19:28Z",
+          "url": "https://www.hurriyetdailynews.com/tariffs-on-brazil-take-effect-as-us-readies-fresh-flurry-224642",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "The article covers US tariffs on Brazil, which is completely unrelated to Airtel or the Indian telecom market."
+        },
+        {
+          "title": "$17.4 billion flows into FCNR(B) deposits: Which bank offers the best 3-year FCNR(B) FD rate—SBI, PNB, HDFC Bank, ICICI Bank or Canara Bank?",
+          "description": "Foreign currency deposits have seen significant inflows after a new RBI scheme.  Canara Bank offers the highest 3-year FCNR(B) USD fixed deposit rate.  HDFC Bank, Axis Bank, and ICICI Bank offer a 6% interest rate.  These deposits are available in various for…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T05:09:02Z",
+          "url": "https://economictimes.indiatimes.com/wealth/invest/sbi-hdfc-pnb-icici-canara-axis-bank-fcnrb-3-year-fd-interest-rate-up-to-6-5-check-rbi-deposit-data-and-key-details/articleshow/132551098.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "The article discusses foreign currency non-resident bank deposits and interest rates in India, which has no direct impact on Airtel's telecom revenue."
+        },
+        {
+          "title": "India steps up energy shift as costs and tariff pressures mount — oil blending push sparks backlash",
+          "description": "The world's third-largest crude consumer, India, is testing alternative fuels such as ethanol from corn and biogas from animal waste, as rising global oil prices and potential curbs on Russian supplies threaten the country's energy security.\nThe South Asian c…",
+          "source": "Biztoc.com",
+          "published_at": "2026-07-22T05:04:36Z",
+          "url": "https://biztoc.com/x/6c05f7b8ac755f57",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "The article discusses India's energy shift and oil blending policies, which is irrelevant to Airtel's subscription-based telecom business."
+        }
+      ],
+      "retrieval_results": [
+        {
+          "url": "https://m.economictimes.com/industry/healthcare/biotech/pharmaceuticals/trumps-200-drug-tariff-plan-is-indias-pharma-industry-about-to-face-an-economic-storm/articleshow/132552962.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_PAYWALL"
+        },
+        {
+          "url": "https://financialpost.com/pmn/business-pmn/rubio-jaishankar-urge-trade-deal-despite-pharma-tariff-threat",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_PAYWALL"
+        },
+        {
+          "url": "https://biztoc.com/",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_ERROR"
+        }
+      ],
+      "model_id": "gemini-3.5-flash",
+      "model_used": "Gemini 3.5 Flash",
+      "fallback_from": [],
+      "primary_retry_at": null
+    }
+  },
+  "cce687a36d0ad233e2c205e8f022027fa1cbb23d15d92fb610580ffa81eee9df": {
+    "fingerprint": "cce687a36d0ad233e2c205e8f022027fa1cbb23d15d92fb610580ffa81eee9df",
+    "company": "Airtel",
+    "created_at": "2026-07-23T09:21:16.768620+00:00",
+    "article_urls": [
+      "https://www.thehindubusinessline.com/markets/stock-markets/us-tariff-threat-drags-nifty-pharma-14-lower-lupin-auropharma-lead-decline/article71252663.ece",
+      "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/trump-tariff-on-generic-drug-medicines-indian-pharma-firms-may-yet-survive-americas-200-tariff-bombshell/articleshow/132554267.cms",
+      "https://economictimes.indiatimes.com/news/economy/foreign-trade/trump-generic-drug-tariffs-200-percent-india-pharmaceutical-exports-us-medicine-market-api-dependence-gtri-report/articleshow/132553749.cms",
+      "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+      "https://www.globenewswire.com/news-release/2026/07/22/3331118/28124/en/Recyclable-BOPP-Pouch-Market-to-Reach-7-48-Billion-by-2030-as-Sustainable-Packaging-Demand-Accelerate.html"
+    ],
+    "result": {
+      "market_score": 0.0,
+      "confidence": 20.0,
+      "summary": "The analyzed articles focus entirely on unrelated sectors such as pharmaceuticals, US drug tariffs, and packaging markets (dicing tapes, BOPP pouches) with no direct or material relevance to Airtel's telecom business, ARPU, subscriber growth, or network operations.",
+      "risks": [
+        "External macroeconomic noise or trade tensions could create general market volatility, though without direct transmission to telecom operational metrics."
+      ],
+      "opportunities": [
+        "No sector-specific tailwinds or telecom industry growth drivers were identified in the current batch of retrieved news articles."
+      ],
+      "breakdown": {
+        "sentiment": 0.0,
+        "relevance": 0.0,
+        "importance": 0.0,
+        "recency": 100.0
+      },
+      "articles": [
+        {
+          "title": "US tariff threat drags Nifty Pharma 1.4% lower; Lupin, Auropharma lead decline",
+          "description": "US tariff threats lead to a 1.4% drop in Nifty Pharma, with Lupin and Auropharma experiencing significant declines.",
+          "source": "BusinessLine",
+          "published_at": "2026-07-22T08:38:27Z",
+          "url": "https://www.thehindubusinessline.com/markets/stock-markets/us-tariff-threat-drags-nifty-pharma-14-lower-lupin-auropharma-lead-decline/article71252663.ece",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "Irrelevant stock market and pharmaceutical sector news regarding US tariffs."
+        },
+        {
+          "title": "Indian pharma firms may yet survive Trump's 200% tariff bombshell",
+          "description": "Donald Trump's proposed up to 200% tariff on generic drug imports has raised concerns for Indian pharma companies, but industry experts say the long-term impact may be limited. India's cost advantage, America's dependence on imported generics and lengthy US f…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T08:02:20Z",
+          "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/trump-tariff-on-generic-drug-medicines-indian-pharma-firms-may-yet-survive-americas-200-tariff-bombshell/articleshow/132554267.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "Gemini did not assign a specific impact explanation."
+        },
+        {
+          "title": "200% Trump tariff shock? India’s cheap pills may still beat US rivals",
+          "description": "US President Donald Trump's proposed tariffs of up to 200% on imported generic medicines could put pressure on India's pharmaceutical exporters, but the country's cost advantage may help many drugs remain competitive in the US market, according to the Global …",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T07:42:24Z",
+          "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/trump-generic-drug-tariffs-200-percent-india-pharmaceutical-exports-us-medicine-market-api-dependence-gtri-report/articleshow/132553749.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "Gemini did not assign a specific impact explanation."
+        },
+        {
+          "title": "Global Non-UV Dicing Tapes Market to Reach $1.55 Billion by 2030 as Advanced Semiconductor Manufacturing Accelerates",
+          "description": "Opportunities center on ultra-thin, low-residue, high-cleanliness pressure-sensitive tapes for precision wafer singulation and advanced AI, fan-out, 5G and EV semiconductor packaging. Asia-Pacific offers strong expansion potential, while North America remains…",
+          "source": "GlobeNewswire",
+          "published_at": "2026-07-22T08:52:00Z",
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+          "retrieval_relevance": 3.0,
+          "impact_score": 0.0,
+          "impact_reason": "Market report on semiconductor manufacturing materials (non-UV dicing tapes), irrelevant to telecom operations."
+        },
+        {
+          "title": "Recyclable BOPP Pouch Market to Reach $7.48 Billion by 2030 as Sustainable Packaging Demand Accelerate",
+          "description": "Opportunities center on mono-material, high-barrier BOPP pouches for food, beverages, pet food, personal care, agriculture, and e-commerce. Asia-Pacific offers scale, while Europe presents rapid expansion driven by regulation. Competitive advantage will depen…",
+          "source": "GlobeNewswire",
+          "published_at": "2026-07-22T08:44:00Z",
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331118/28124/en/Recyclable-BOPP-Pouch-Market-to-Reach-7-48-Billion-by-2030-as-Sustainable-Packaging-Demand-Accelerate.html",
+          "retrieval_relevance": 2.0,
+          "impact_score": 0.0,
+          "impact_reason": "Market research report concerning packaging materials and recyclable BOPP pouches, completely outside the telecom domain."
+        }
+      ],
+      "retrieval_results": [
+        {
+          "url": "https://www.thehindubusinessline.com/markets/stock-markets/us-tariff-threat-drags-nifty-pharma-14-lower-lupin-auropharma-lead-decline/article71252663.ece",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_ERROR"
+        },
+        {
+          "url": "https://m.economictimes.com/industry/healthcare/biotech/pharmaceuticals/trump-tariff-on-generic-drug-medicines-indian-pharma-firms-may-yet-survive-americas-200-tariff-bombshell/articleshow/132553896.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/news/economy/foreign-trade/trump-generic-drug-tariffs-200-percent-india-pharmaceutical-exports-us-medicine-market-api-dependence-gtri-report/articleshow/132553749.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331118/28124/en/Recyclable-BOPP-Pouch-Market-to-Reach-7-48-Billion-by-2030-as-Sustainable-Packaging-Demand-Accelerate.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        }
+      ],
+      "model_id": "gemini-3.5-flash-lite",
+      "model_used": "Gemini 3.5 Flash Lite",
+      "fallback_from": [],
+      "primary_retry_at": null
+    }
+  },
+  "88d80fbde4d44a5f41f0961f58427d443193baec5868d6bfe9f6e86a386bcd3a": {
+    "fingerprint": "88d80fbde4d44a5f41f0961f58427d443193baec5868d6bfe9f6e86a386bcd3a",
+    "company": "Airtel",
+    "created_at": "2026-07-23T09:46:04.278682+00:00",
+    "article_urls": [
+      "https://economictimes.indiatimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+      "https://www.thehindubusinessline.com/markets/stock-markets/us-tariff-threat-drags-nifty-pharma-14-lower-lupin-auropharma-lead-decline/article71252663.ece",
+      "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/trump-tariff-on-generic-drug-medicines-indian-pharma-firms-may-yet-survive-americas-200-tariff-bombshell/articleshow/132554267.cms",
+      "https://economictimes.indiatimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+      "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html"
+    ],
+    "result": {
+      "market_score": 0.0,
+      "confidence": 40.0,
+      "summary": "The analysed news articles cover unrelated sectors such as international generic drug tariffs affecting pharmaceutical companies, amusement park expansions, and semiconductor manufacturing components. None of these developments have a direct, material bearing on Airtel's subscription-based telecom business model, ARPU, or subscriber metrics for the upcoming quarter.",
+      "risks": [
+        "Broader macroeconomic trade tensions and potential tariff policies could create indirect inflationary pressures, though direct impact on telecom operations remains minimal."
+      ],
+      "opportunities": [
+        "Continued growth in digital consumption and advanced connectivity infrastructure demand could indirectly support long-term data customer usage."
+      ],
+      "breakdown": {
+        "sentiment": 0.0,
+        "relevance": 15.0,
+        "importance": 10.0,
+        "recency": 100.0
+      },
+      "articles": [
+        {
+          "title": "Generic drugmaker Sandoz to engage with US after Trump tariff threat",
+          "description": "US President Donald Trump threatened steep tariffs on generic drugmakers.  He stated medicines must be manufactured locally or face significant import duties.  Swiss firm Sandoz will continue discussions with policymakers on this matter.  The company is asses…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T09:22:36Z",
+          "url": "https://economictimes.indiatimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "Covers pharmaceutical tariffs imposed by the US on generic drugmakers, which has no direct relevance to Airtel's telecom revenue."
+        },
+        {
+          "title": "US tariff threat drags Nifty Pharma 1.4% lower; Lupin, Auropharma lead decline",
+          "description": "US tariff threats lead to a 1.4% drop in Nifty Pharma, with Lupin and Auropharma experiencing significant declines.",
+          "source": "BusinessLine",
+          "published_at": "2026-07-22T08:38:27Z",
+          "url": "https://www.thehindubusinessline.com/markets/stock-markets/us-tariff-threat-drags-nifty-pharma-14-lower-lupin-auropharma-lead-decline/article71252663.ece",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "URL content could not be retrieved, and stock market movements of pharma firms do not directly impact telecom subscription revenues."
+        },
+        {
+          "title": "Indian pharma firms may yet survive Trump's 200% tariff bombshell",
+          "description": "Donald Trump's proposed up to 200% tariff on generic drug imports has raised concerns for Indian pharma companies, but industry experts say the long-term impact may be limited. India's cost advantage, America's dependence on imported generics and lengthy US f…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T08:02:20Z",
+          "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/trump-tariff-on-generic-drug-medicines-indian-pharma-firms-may-yet-survive-americas-200-tariff-bombshell/articleshow/132554267.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "Focuses on the impact of US generic drug tariffs on Indian pharmaceutical exports, which is unrelated to Airtel's operations."
+        },
+        {
+          "title": "India's Imagicaaworld bets on experience economy with $104 million expansion plan",
+          "description": "Imagicaaworld plans a 10 billion rupee expansion across major Indian cities. The company aims to increase its park portfolio from nine to thirteen locations. Ticket prices will rise by five to eight percent to boost margins. This move follows a weak fiscal ye…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T09:27:12Z",
+          "url": "https://economictimes.indiatimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+          "retrieval_relevance": 3.0,
+          "impact_score": 0.0,
+          "impact_reason": "Discusses an amusement park operator's capital expansion and ticket pricing strategies, bearing no relation to telecom tariffs or ARPU."
+        },
+        {
+          "title": "Global Non-UV Dicing Tapes Market to Reach $1.55 Billion by 2030 as Advanced Semiconductor Manufacturing Accelerates",
+          "description": "Opportunities center on ultra-thin, low-residue, high-cleanliness pressure-sensitive tapes for precision wafer singulation and advanced AI, fan-out, 5G and EV semiconductor packaging. Asia-Pacific offers strong expansion potential, while North America remains…",
+          "source": "GlobeNewswire",
+          "published_at": "2026-07-22T08:52:00Z",
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+          "retrieval_relevance": 3.0,
+          "impact_score": 0.0,
+          "impact_reason": "Details market forecasts for semiconductor dicing tapes, which is irrelevant to a subscription-based telecom service provider."
+        }
+      ],
+      "retrieval_results": [
+        {
+          "url": "https://m.economictimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.thehindubusinessline.com/markets/stock-markets/us-tariff-threat-drags-nifty-pharma-14-lower-lupin-auropharma-lead-decline/article71252663.ece",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_ERROR"
+        },
+        {
+          "url": "https://m.economictimes.com/industry/healthcare/biotech/pharmaceuticals/trump-tariff-on-generic-drug-medicines-indian-pharma-firms-may-yet-survive-americas-200-tariff-bombshell/articleshow/132553896.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        }
+      ],
+      "model_id": "gemini-3.5-flash-lite",
+      "model_used": "Gemini 3.5 Flash Lite",
+      "fallback_from": [],
+      "primary_retry_at": null
+    }
+  },
+  "27a016cdfd914a280af7a76bf1a762dc1cbb3e08ad6932961a531b7cd30c1e53": {
+    "fingerprint": "27a016cdfd914a280af7a76bf1a762dc1cbb3e08ad6932961a531b7cd30c1e53",
+    "company": "Airtel",
+    "created_at": "2026-07-23T10:17:53.370707+00:00",
+    "article_urls": [
+      "https://economictimes.indiatimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+      "https://www.thehindubusinessline.com/markets/stock-markets/us-tariff-threat-drags-nifty-pharma-14-lower-lupin-auropharma-lead-decline/article71252663.ece",
+      "https://economictimes.indiatimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+      "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+      "https://www.globenewswire.com/news-release/2026/07/22/3331118/28124/en/Recyclable-BOPP-Pouch-Market-to-Reach-7-48-Billion-by-2030-as-Sustainable-Packaging-Demand-Accelerate.html"
+    ],
+    "result": {
+      "market_score": 0.0,
+      "confidence": 15.0,
+      "summary": "The analyzed articles focus entirely on unrelated external developments such as US pharmaceutical tariffs on generic drugmakers, entertainment park expansions, semiconductor dicing tape market forecasts, and sustainable packaging trends. None of the articles contain relevant information regarding Airtel's telecom pricing, ARPU, regulatory conditions, spectrum, or subscriber metrics, resulting in a neutral score due to insufficient relevant evidence.",
+      "risks": [
+        "Potential broader macroeconomic volatility from international trade policy tensions"
+      ],
+      "opportunities": [
+        "Stable domestic operating conditions with no direct sector-specific shocks identified in the current news set"
+      ],
+      "breakdown": {
+        "sentiment": 0.0,
+        "relevance": 5.0,
+        "importance": 5.0,
+        "recency": 100.0
+      },
+      "articles": [
+        {
+          "title": "Generic drugmaker Sandoz to engage with US after Trump tariff threat",
+          "description": "US President Donald Trump threatened steep tariffs on generic drugmakers.  He stated medicines must be manufactured locally or face significant import duties.  Swiss firm Sandoz will continue discussions with policymakers on this matter.  The company is asses…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T09:22:36Z",
+          "url": "https://economictimes.indiatimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "Discusses US tariff threats on generic drug manufacturers, which has no direct connection to Indian telecommunications revenue."
+        },
+        {
+          "title": "US tariff threat drags Nifty Pharma 1.4% lower; Lupin, Auropharma lead decline",
+          "description": "US tariff threats lead to a 1.4% drop in Nifty Pharma, with Lupin and Auropharma experiencing significant declines.",
+          "source": "BusinessLine",
+          "published_at": "2026-07-22T08:38:27Z",
+          "url": "https://www.thehindubusinessline.com/markets/stock-markets/us-tariff-threat-drags-nifty-pharma-14-lower-lupin-auropharma-lead-decline/article71252663.ece",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "URL could not be successfully retrieved/parsed for direct text contents; general market movement information is excluded per instructions."
+        },
+        {
+          "title": "India's Imagicaaworld bets on experience economy with $104 million expansion plan",
+          "description": "Imagicaaworld plans a 10 billion rupee expansion across major Indian cities. The company aims to increase its park portfolio from nine to thirteen locations. Ticket prices will rise by five to eight percent to boost margins. This move follows a weak fiscal ye…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T09:27:12Z",
+          "url": "https://economictimes.indiatimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+          "retrieval_relevance": 3.0,
+          "impact_score": 0.0,
+          "impact_reason": "Covers amusement park expansion and leisure spending trends, which are irrelevant to telecom subscriptions and ARPU."
+        },
+        {
+          "title": "Global Non-UV Dicing Tapes Market to Reach $1.55 Billion by 2030 as Advanced Semiconductor Manufacturing Accelerates",
+          "description": "Opportunities center on ultra-thin, low-residue, high-cleanliness pressure-sensitive tapes for precision wafer singulation and advanced AI, fan-out, 5G and EV semiconductor packaging. Asia-Pacific offers strong expansion potential, while North America remains…",
+          "source": "GlobeNewswire",
+          "published_at": "2026-07-22T08:52:00Z",
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+          "retrieval_relevance": 3.0,
+          "impact_score": 0.0,
+          "impact_reason": "Focuses on the global semiconductor dicing tape market report forecast, lacking relevance to telecom services."
+        },
+        {
+          "title": "Recyclable BOPP Pouch Market to Reach $7.48 Billion by 2030 as Sustainable Packaging Demand Accelerate",
+          "description": "Opportunities center on mono-material, high-barrier BOPP pouches for food, beverages, pet food, personal care, agriculture, and e-commerce. Asia-Pacific offers scale, while Europe presents rapid expansion driven by regulation. Competitive advantage will depen…",
+          "source": "GlobeNewswire",
+          "published_at": "2026-07-22T08:44:00Z",
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331118/28124/en/Recyclable-BOPP-Pouch-Market-to-Reach-7-48-Billion-by-2030-as-Sustainable-Packaging-Demand-Accelerate.html",
+          "retrieval_relevance": 2.0,
+          "impact_score": 0.0,
+          "impact_reason": "Covers market projections for recyclable BOPP pouches and packaging, which has no direct impact on Airtel's business revenue model."
+        }
+      ],
+      "retrieval_results": [
+        {
+          "url": "https://m.economictimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.thehindubusinessline.com/markets/stock-markets/us-tariff-threat-drags-nifty-pharma-14-lower-lupin-auropharma-lead-decline/article71252663.ece",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_ERROR"
+        },
+        {
+          "url": "https://m.economictimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331118/28124/en/Recyclable-BOPP-Pouch-Market-to-Reach-7-48-Billion-by-2030-as-Sustainable-Packaging-Demand-Accelerate.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        }
+      ],
+      "model_id": "gemini-3.5-flash-lite",
+      "model_used": "Gemini 3.5 Flash Lite",
+      "fallback_from": [],
+      "primary_retry_at": null
+    }
+  },
+  "e1e63f0871560eda8c59cb787745d3436eebe32ea41881c4c8af8484841e2643": {
+    "fingerprint": "e1e63f0871560eda8c59cb787745d3436eebe32ea41881c4c8af8484841e2643",
+    "company": "Airtel",
+    "created_at": "2026-07-23T10:31:08.853173+00:00",
+    "article_urls": [
+      "https://economictimes.indiatimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+      "https://economictimes.indiatimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+      "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+      "https://economictimes.indiatimes.com/news/science/india-must-cut-launch-costs-boost-local-manufacturing-to-become-worlds-third-largest-space-economy-dot-official/articleshow/132556414.cms",
+      "https://www.globenewswire.com/news-release/2026/07/22/3331118/28124/en/Recyclable-BOPP-Pouch-Market-to-Reach-7-48-Billion-by-2030-as-Sustainable-Packaging-Demand-Accelerate.html"
+    ],
+    "result": {
+      "market_score": 5.0,
+      "confidence": 40.0,
+      "summary": "The analysed news environment contains minor macro developments related to Indian tech, space policy, and broader global manufacturing sectors, with limited direct short-term impact on Airtel's next-quarter subscription revenue baseline.",
+      "risks": [
+        "Continued dependency on imported components and materials for advanced telecommunications and infrastructure.",
+        "Potential regulatory adjustments in the space and telecom sectors."
+      ],
+      "opportunities": [
+        "Long-term growth in the downstream space economy and satellite broadband/D2D communication services.",
+        "Favorable macroeconomic push towards digital infrastructure and domestic manufacturing capabilities."
+      ],
+      "breakdown": {
+        "sentiment": 15.0,
+        "relevance": 35.0,
+        "importance": 40.0,
+        "recency": 100.0
+      },
+      "articles": [
+        {
+          "title": "India must cut launch costs, boost local manufacturing to become world's third-largest space economy: DoT official",
+          "description": "India is on a mission to become the world's third-largest space economy by the year 2033. This ambitious vision hinges on vital changes in policy and regulatory frameworks. Lowering launch costs and ramping up local manufacturing of materials are critical. Ad…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T10:26:58Z",
+          "url": "https://economictimes.indiatimes.com/news/science/india-must-cut-launch-costs-boost-local-manufacturing-to-become-worlds-third-largest-space-economy-dot-official/articleshow/132556414.cms",
+          "retrieval_relevance": 2.0,
+          "impact_score": 0.2,
+          "impact_reason": "Discussions on expanding India's space economy, satellite applications, and device-to-device (D2D) communications offer a minor positive indicator for long-term telecom network evolution."
+        },
+        {
+          "title": "Generic drugmaker Sandoz to engage with US after Trump tariff threat",
+          "description": "US President Donald Trump threatened steep tariffs on generic drugmakers.  He stated medicines must be manufactured locally or face significant import duties.  Swiss firm Sandoz will continue discussions with policymakers on this matter.  The company is asses…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T09:22:36Z",
+          "url": "https://economictimes.indiatimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "Pharmaceutical tariff news involving Swiss firm Sandoz and the US market has no direct operational or revenue relevance to Indian telecom operations."
+        },
+        {
+          "title": "India's Imagicaaworld bets on experience economy with $104 million expansion plan",
+          "description": "Imagicaaworld plans a 10 billion rupee expansion across major Indian cities. The company aims to increase its park portfolio from nine to thirteen locations. Ticket prices will rise by five to eight percent to boost margins. This move follows a weak fiscal ye…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T09:27:12Z",
+          "url": "https://economictimes.indiatimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+          "retrieval_relevance": 3.0,
+          "impact_score": 0.0,
+          "impact_reason": "Entertainment and theme park expansion plans reflect general consumer experience trends but lack direct impact on telecom subscription revenue."
+        },
+        {
+          "title": "Global Non-UV Dicing Tapes Market to Reach $1.55 Billion by 2030 as Advanced Semiconductor Manufacturing Accelerates",
+          "description": "Opportunities center on ultra-thin, low-residue, high-cleanliness pressure-sensitive tapes for precision wafer singulation and advanced AI, fan-out, 5G and EV semiconductor packaging. Asia-Pacific offers strong expansion potential, while North America remains…",
+          "source": "GlobeNewswire",
+          "published_at": "2026-07-22T08:52:00Z",
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+          "retrieval_relevance": 3.0,
+          "impact_score": 0.0,
+          "impact_reason": "Global semiconductor manufacturing and dicing tape market report is too tangential to direct telecom service revenue."
+        },
+        {
+          "title": "Recyclable BOPP Pouch Market to Reach $7.48 Billion by 2030 as Sustainable Packaging Demand Accelerate",
+          "description": "Opportunities center on mono-material, high-barrier BOPP pouches for food, beverages, pet food, personal care, agriculture, and e-commerce. Asia-Pacific offers scale, while Europe presents rapid expansion driven by regulation. Competitive advantage will depen…",
+          "source": "GlobeNewswire",
+          "published_at": "2026-07-22T08:44:00Z",
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331118/28124/en/Recyclable-BOPP-Pouch-Market-to-Reach-7-48-Billion-by-2030-as-Sustainable-Packaging-Demand-Accelerate.html",
+          "retrieval_relevance": 2.0,
+          "impact_score": 0.0,
+          "impact_reason": "Sustainable packaging market trends are irrelevant to telecommunications subscriber metrics or ARPU."
+        }
+      ],
+      "retrieval_results": [
+        {
+          "url": "https://m.economictimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331118/28124/en/Recyclable-BOPP-Pouch-Market-to-Reach-7-48-Billion-by-2030-as-Sustainable-Packaging-Demand-Accelerate.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/news/science/india-must-cut-launch-costs-boost-local-manufacturing-to-become-worlds-third-largest-space-economy-dot-official/articleshow/132556414.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        }
+      ],
+      "model_id": "gemini-3.5-flash-lite",
+      "model_used": "Gemini 3.5 Flash Lite",
+      "fallback_from": [],
+      "primary_retry_at": null
+    }
+  },
+  "2a8af5ac2b02536731f676f9f28ffb54483fe8d83dc9016b36d4a2437b041120": {
+    "fingerprint": "2a8af5ac2b02536731f676f9f28ffb54483fe8d83dc9016b36d4a2437b041120",
+    "company": "Airtel",
+    "created_at": "2026-07-23T10:38:50.059081+00:00",
+    "article_urls": [
+      "https://economictimes.indiatimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+      "https://economictimes.indiatimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+      "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+      "https://economictimes.indiatimes.com/news/science/india-must-cut-launch-costs-boost-local-manufacturing-to-become-worlds-third-largest-space-economy-dot-official/articleshow/132556414.cms",
+      "https://economictimes.indiatimes.com/news/economy/finance/karnataka-attracts-13-billion-in-fdi-as-tech-gcc-investments-surge/articleshow/132555798.cms"
+    ],
+    "result": {
+      "market_score": 10.0,
+      "confidence": 75.0,
+      "summary": "The external environment features positive macro indicators like strong FDI inflows into tech and data centers in India, alongside developments in space infrastructure and digital demand. While some items like US generic drug tariffs are unrelated to telecom, overall macroeconomic conditions remain mildly supportive for domestic telecom operations.",
+      "risks": [
+        "Continued reliance on imported critical components and semiconductors exposing supply chains to potential external shocks."
+      ],
+      "opportunities": [
+        "Surging investments in technology, data centers, and global capability centers (GCCs) expanding enterprise data demand.",
+        "Growth in satellite and digital applications supporting downstream telecom and data expansion."
+      ],
+      "breakdown": {
+        "sentiment": 15.0,
+        "relevance": 65.0,
+        "importance": 60.0,
+        "recency": 100.0
+      },
+      "articles": [
+        {
+          "title": "India must cut launch costs, boost local manufacturing to become world's third-largest space economy: DoT official",
+          "description": "India is on a mission to become the world's third-largest space economy by the year 2033. This ambitious vision hinges on vital changes in policy and regulatory frameworks. Lowering launch costs and ramping up local manufacturing of materials are critical. Ad…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T10:26:58Z",
+          "url": "https://economictimes.indiatimes.com/news/science/india-must-cut-launch-costs-boost-local-manufacturing-to-become-worlds-third-largest-space-economy-dot-official/articleshow/132556414.cms",
+          "retrieval_relevance": 2.0,
+          "impact_score": 0.2,
+          "impact_reason": "Focus on expanding downstream space economy, satellite communications, and device-to-device connectivity aligns favorably with long-term telecom infrastructure growth."
+        },
+        {
+          "title": "Karnataka attracts $13 billion in FDI as tech, GCC investments surge",
+          "description": "Karnataka's foreign direct investment nearly doubled to thirteen billion dollars last financial year. Tech investors and global capability centers significantly boosted Karnataka's investment inflows. Maharashtra, the top destination, experienced a dip in for…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T09:54:00Z",
+          "url": "https://economictimes.indiatimes.com/news/economy/finance/karnataka-attracts-13-billion-in-fdi-as-tech-gcc-investments-surge/articleshow/132555798.cms",
+          "retrieval_relevance": 1.0,
+          "impact_score": 0.2,
+          "impact_reason": "Surging FDI inflows into tech, data centers, and GCCs in key Indian regions support enterprise connectivity and data demand growth."
+        },
+        {
+          "title": "India's Imagicaaworld bets on experience economy with $104 million expansion plan",
+          "description": "Imagicaaworld plans a 10 billion rupee expansion across major Indian cities. The company aims to increase its park portfolio from nine to thirteen locations. Ticket prices will rise by five to eight percent to boost margins. This move follows a weak fiscal ye…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T09:27:12Z",
+          "url": "https://economictimes.indiatimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+          "retrieval_relevance": 3.0,
+          "impact_score": 0.1,
+          "impact_reason": "Indicates broader consumer spending growth on the experience economy, showing positive discretionary demand trends."
+        },
+        {
+          "title": "Generic drugmaker Sandoz to engage with US after Trump tariff threat",
+          "description": "US President Donald Trump threatened steep tariffs on generic drugmakers.  He stated medicines must be manufactured locally or face significant import duties.  Swiss firm Sandoz will continue discussions with policymakers on this matter.  The company is asses…",
+          "source": "The Times of India",
+          "published_at": "2026-07-22T09:22:36Z",
+          "url": "https://economictimes.indiatimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "Pharmaceutical tariffs in the US have no direct relevance to Indian subscription telecom revenues."
+        },
+        {
+          "title": "Global Non-UV Dicing Tapes Market to Reach $1.55 Billion by 2030 as Advanced Semiconductor Manufacturing Accelerates",
+          "description": "Opportunities center on ultra-thin, low-residue, high-cleanliness pressure-sensitive tapes for precision wafer singulation and advanced AI, fan-out, 5G and EV semiconductor packaging. Asia-Pacific offers strong expansion potential, while North America remains…",
+          "source": "GlobeNewswire",
+          "published_at": "2026-07-22T08:52:00Z",
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+          "retrieval_relevance": 3.0,
+          "impact_score": 0.0,
+          "impact_reason": "Global semiconductor manufacturing and dicing tape market dynamics have negligible direct impact on Airtel's next-quarter revenue baseline."
+        }
+      ],
+      "retrieval_results": [
+        {
+          "url": "https://m.economictimes.com/news/international/business/sandoz-responds-to-trumps-threat-of-100-tariff-on-generic-drugs-pledges-dialogue-with-us-policymakers/articleshow/132555362.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/news/international/world-news/imagicaaworld-unveils-104-million-expansion-to-transform-indias-entertainment-landscape-and-boost-experience-economy/articleshow/132555406.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/07/22/3331128/28124/en/Global-Non-UV-Dicing-Tapes-Market-to-Reach-1-55-Billion-by-2030-as-Advanced-Semiconductor-Manufacturing-Accelerates.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/news/science/india-must-cut-launch-costs-boost-local-manufacturing-to-become-worlds-third-largest-space-economy-dot-official/articleshow/132556414.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/news/economy/finance/karnataka-attracts-13-billion-in-fdi-as-tech-gcc-investments-surge/articleshow/132555798.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        }
+      ],
+      "model_id": "gemini-3.5-flash-lite",
+      "model_used": "Gemini 3.5 Flash Lite",
+      "fallback_from": [],
+      "primary_retry_at": null
+    }
+  },
+  "f8927f475b403566570fd40f6360180ab75c51ebcc36ec943d83990fda0fb103": {
+    "fingerprint": "f8927f475b403566570fd40f6360180ab75c51ebcc36ec943d83990fda0fb103",
+    "company": "Selected company",
+    "created_at": "2026-07-24T06:39:52.273231+00:00",
+    "article_urls": [
+      "https://www.livemint.com/companies/news/uco-bank-says-iran-russia-rupee-trade-channels-remain-open-within-sanctions-ai-cybersecurity-digital-lending-11784779446635.html",
+      "https://www.aninews.in/news/business/india-pharma-market-enters-us-tariff-transition-with-strong-domestic-growth-report20260723104932",
+      "https://economictimes.indiatimes.com/markets/forex/forex-news/rupee-likely-shielded-by-rbi-intervention-as-oil-surges/articleshow/132572568.cms",
+      "https://economictimes.indiatimes.com/markets/bonds/oil-prices-scorch-indian-bonds-rising-treasury-yields-add-to-pressure/articleshow/132572526.cms",
+      "https://oilprice.com/Latest-Energy-News/World-News/Two-Saudi-Oil-Tankers-Targeted-as-Houthi-Blockade-Disrupts-Red-Sea-Shipping.html"
+    ],
+    "result": {
+      "market_score": -15.0,
+      "confidence": 70.0,
+      "summary": "Geopolitical tensions and rising crude oil prices present mild macroeconomic headwinds for an Indian telecom business, putting slight upward pressure on inflation and operating costs, though balanced by baseline baseline models.",
+      "risks": [
+        "Surging crude oil prices driving macroeconomic inflation pressures",
+        "Potential depreciation of the Indian rupee increasing foreign-denominated network or spectrum costs",
+        "Tightening financial conditions affecting operational expenditures"
+      ],
+      "opportunities": [
+        "Stable domestic economic activity supporting resilient subscriber demand",
+        "Potential offset from central bank interventions shielding sharp currency volatility"
+      ],
+      "breakdown": {
+        "sentiment": -35.0,
+        "relevance": 75.0,
+        "importance": 70.0,
+        "recency": 100.0
+      },
+      "articles": [
+        {
+          "title": "Rupee likely shielded by RBI intervention as oil surges",
+          "description": "The Indian rupee remained largely unchanged on Thursday.  Higher oil prices and central bank actions influenced its movement.  Global tensions in the Red Sea and strikes on Iran escalated oil prices.  These rising energy costs pose a significant risk to India…",
+          "source": "The Times of India",
+          "published_at": "2026-07-23T05:25:30Z",
+          "url": "https://economictimes.indiatimes.com/markets/forex/forex-news/rupee-likely-shielded-by-rbi-intervention-as-oil-surges/articleshow/132572568.cms",
+          "retrieval_relevance": 3.0,
+          "impact_score": -0.2,
+          "impact_reason": "Rising crude oil prices and currency pressures create slight macroeconomic headwinds for operating costs in India."
+        },
+        {
+          "title": "Oil prices scorch Indian bonds; rising Treasury yields add to pressure",
+          "description": "Indian government bonds declined early Thursday as Middle East tensions escalated. Crude oil prices neared $100 a barrel, and U.S. Treasury yields also rose. Higher oil prices threaten to revive inflation pressures and weaken the Indian rupee. This situation …",
+          "source": "The Times of India",
+          "published_at": "2026-07-23T05:22:43Z",
+          "url": "https://economictimes.indiatimes.com/markets/bonds/oil-prices-scorch-indian-bonds-rising-treasury-yields-add-to-pressure/articleshow/132572526.cms",
+          "retrieval_relevance": 3.0,
+          "impact_score": -0.2,
+          "impact_reason": "Escalating oil prices and bond market stress signal inflationary pressures that could impact macro cost structures."
+        },
+        {
+          "title": "India pharma market enters US tariff transition with strong domestic growth: Report",
+          "description": "India's pharmaceutical market is entering the proposed two-year transition period before the United States' planned tariffs on imported generic medicines with broad-based domestic growth momentum, according to an Equirus Securities report, which highlighted s…",
+          "source": "ANI News",
+          "published_at": "2026-07-23T06:17:28Z",
+          "url": "https://www.aninews.in/news/business/india-pharma-market-enters-us-tariff-transition-with-strong-domestic-growth-report20260723104932",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.1,
+          "impact_reason": "Highlights robust domestic economic momentum, though specific to the pharmaceutical sector rather than telecom."
+        },
+        {
+          "title": "UCO Bank says Iran, Russia rupee trade channels remain open within sanctions",
+          "description": "The state-run lender said it continues to facilitate sanctions-compliant trade through special rupee vostro accounts, highlighting the continued role of India's alternative payment channels amid shifting geopolitical dynamics.",
+          "source": "Livemint",
+          "published_at": "2026-07-23T05:57:25Z",
+          "url": "https://www.livemint.com/companies/news/uco-bank-says-iran-russia-rupee-trade-channels-remain-open-within-sanctions-ai-cybersecurity-digital-lending-11784779446635.html",
+          "retrieval_relevance": 4.6,
+          "impact_score": 0.0,
+          "impact_reason": "Content could not be retrieved due to access limitations, resulting in neutral treatment."
+        },
+        {
+          "title": "Two Saudi Oil Tankers Targeted as Houthi Blockade Disrupts Red Sea Shipping",
+          "description": "At least two tankers have turned away from the Bab el-Mandeb Strait after Yemen’s Houthis said they have struck two Saudi tankers in the chokepoint in the latest Middle East war escalation, saying they had violated the naval blockade that the Yemeni forces de…",
+          "source": "OilPrice.com",
+          "published_at": "2026-07-23T06:30:00Z",
+          "url": "https://oilprice.com/Latest-Energy-News/World-News/Two-Saudi-Oil-Tankers-Targeted-as-Houthi-Blockade-Disrupts-Red-Sea-Shipping.html",
+          "retrieval_relevance": 2.8,
+          "impact_score": 0.0,
+          "impact_reason": "Article could not be successfully retrieved due to blocks."
+        }
+      ],
+      "retrieval_results": [
+        {
+          "url": "https://www.livemint.com/companies/news/uco-bank-says-iran-russia-rupee-trade-channels-remain-open-within-sanctions-ai-cybersecurity-digital-lending-11784779446635.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_PAYWALL"
+        },
+        {
+          "url": "https://www.aninews.in/news/business/india-pharma-market-enters-us-tariff-transition-with-strong-domestic-growth-report20260723104932/",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/markets/forex/forex-news/rupee-likely-shielded-by-rbi-intervention-as-oil-surges/articleshow/132572568.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/markets/bonds/oil-prices-scorch-indian-bonds-rising-treasury-yields-add-to-pressure/articleshow/132572526.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://oilprice.com/Latest-Energy-News/World-News/Two-Saudi-Oil-Tankers-Targeted-as-Houthi-Blockade-Disrupts-Red-Sea-Shipping.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_ERROR"
+        },
+        {
+          "url": "https://oilprice.com/Latest-Energy-News/World-News/Two-Saudi-Oil-Tankers-Targeted-as-Houthi-Blockade-Disrupts-Red-Sea-Shipping.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_ERROR"
+        }
+      ],
+      "model_id": "gemini-3.5-flash-lite",
+      "model_used": "Gemini 3.5 Flash Lite",
+      "fallback_from": [],
+      "primary_retry_at": null
+    }
+  },
+  "65d8d9b474b8bdd7548992acd03135faecc79caededcf7e8e00d2df70f01a126": {
+    "fingerprint": "65d8d9b474b8bdd7548992acd03135faecc79caededcf7e8e00d2df70f01a126",
+    "company": "Airtel",
+    "created_at": "2026-07-24T07:09:34.809145+00:00",
+    "article_urls": [
+      "https://www.livemint.com/companies/news/uco-bank-says-iran-russia-rupee-trade-channels-remain-open-within-sanctions-ai-cybersecurity-digital-lending-11784779446635.html",
+      "https://www.aninews.in/news/business/india-pharma-market-enters-us-tariff-transition-with-strong-domestic-growth-report20260723104932",
+      "https://economictimes.indiatimes.com/news/international/world-news/war-risk-premiums-surge-1000-as-hormuz-red-sea-gulf-oil-amid-shipping-tensions-due-to-middle-east-conflict-and-troubles-for-india-crude-imports/articleshow/132573750.cms",
+      "https://economictimes.indiatimes.com/markets/forex/forex-news/rupee-likely-shielded-by-rbi-intervention-as-oil-surges/articleshow/132572568.cms",
+      "https://economictimes.indiatimes.com/markets/bonds/oil-prices-scorch-indian-bonds-rising-treasury-yields-add-to-pressure/articleshow/132572526.cms"
+    ],
+    "result": {
+      "market_score": 0.0,
+      "confidence": 15.0,
+      "summary": "The user entered 'Airtel', referring to Bharti Airtel in the Indian telecom context. However, none of the successfully retrieved articles contain direct evidence concerning Bharti Airtel's pricing, tariffs, ARPU, subscriber growth, or network expansions. The provided articles focus on general macroeconomic updates such as UCO Bank rupee trade channels, the Indian pharma market and US tariffs, war-risk insurance premiums for shipping, RBI intervention on the rupee amid rising oil prices, and bond market pressures due to crude prices. Given the total lack of company-specific or sector-specific telecom news in the valid text, the market impact score is neutral (0) with low confidence.",
+      "risks": [
+        "Macroeconomic inflation pressures from soaring crude oil prices could indirectly increase operating expenses.",
+        "Broader financial market volatility and rising bond yields could tighten financing conditions."
+      ],
+      "opportunities": [
+        "Resilient domestic economic activity could support steady customer demand and subscriber retention."
+      ],
+      "breakdown": {
+        "sentiment": 0.0,
+        "relevance": 20.0,
+        "importance": 10.0,
+        "recency": 100.0
+      },
+      "articles": [
+        {
+          "title": "UCO Bank says Iran, Russia rupee trade channels remain open within sanctions",
+          "description": "The state-run lender said it continues to facilitate sanctions-compliant trade through special rupee vostro accounts, highlighting the continued role of India's alternative payment channels amid shifting geopolitical dynamics.",
+          "source": "Livemint",
+          "published_at": "2026-07-23T05:57:25Z",
+          "url": "https://www.livemint.com/companies/news/uco-bank-says-iran-russia-rupee-trade-channels-remain-open-within-sanctions-ai-cybersecurity-digital-lending-11784779446635.html",
+          "retrieval_relevance": 4.6,
+          "impact_score": 0.0,
+          "impact_reason": "The page content could not be successfully retrieved due to access/paywall limitations."
+        },
+        {
+          "title": "India pharma market enters US tariff transition with strong domestic growth: Report",
+          "description": "India's pharmaceutical market is entering the proposed two-year transition period before the United States' planned tariffs on imported generic medicines with broad-based domestic growth momentum, according to an Equirus Securities report, which highlighted s…",
+          "source": "ANI News",
+          "published_at": "2026-07-23T06:17:28Z",
+          "url": "https://www.aninews.in/news/business/india-pharma-market-enters-us-tariff-transition-with-strong-domestic-growth-report20260723104932",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "Article covers the Indian pharmaceutical market and US generic drug tariffs, which has no direct relevance to telecom revenue."
+        },
+        {
+          "title": "Hormuz, Red Sea spark a 1,000% war-risk premium shock",
+          "description": "War-risk insurance premiums have surged by as much as 1,000% as tensions across the Strait of Hormuz and the Red Sea disrupt shipping. Fresh Houthi attacks and the US-Iran conflict are raising voyage costs, increasing crude import expenses for India and addin…",
+          "source": "The Times of India",
+          "published_at": "2026-07-23T06:56:44Z",
+          "url": "https://economictimes.indiatimes.com/news/international/world-news/war-risk-premiums-surge-1000-as-hormuz-red-sea-gulf-oil-amid-shipping-tensions-due-to-middle-east-conflict-and-troubles-for-india-crude-imports/articleshow/132573750.cms",
+          "retrieval_relevance": 3.6,
+          "impact_score": 0.0,
+          "impact_reason": "Article discusses shipping war-risk premiums and crude oil import logistics, lacking direct impact on telecom revenue drivers."
+        },
+        {
+          "title": "Rupee likely shielded by RBI intervention as oil surges",
+          "description": "The Indian rupee remained largely unchanged on Thursday.  Higher oil prices and central bank actions influenced its movement.  Global tensions in the Red Sea and strikes on Iran escalated oil prices.  These rising energy costs pose a significant risk to India…",
+          "source": "The Times of India",
+          "published_at": "2026-07-23T05:25:30Z",
+          "url": "https://economictimes.indiatimes.com/markets/forex/forex-news/rupee-likely-shielded-by-rbi-intervention-as-oil-surges/articleshow/132572568.cms",
+          "retrieval_relevance": 3.0,
+          "impact_score": 0.0,
+          "impact_reason": "Focuses on foreign exchange markets, RBI intervention, and the rupee under pressure from oil surges, with no direct telecom operational impact."
+        },
+        {
+          "title": "Oil prices scorch Indian bonds; rising Treasury yields add to pressure",
+          "description": "Indian government bonds declined early Thursday as Middle East tensions escalated. Crude oil prices neared $100 a barrel, and U.S. Treasury yields also rose. Higher oil prices threaten to revive inflation pressures and weaken the Indian rupee. This situation …",
+          "source": "The Times of India",
+          "published_at": "2026-07-23T05:22:43Z",
+          "url": "https://economictimes.indiatimes.com/markets/bonds/oil-prices-scorch-indian-bonds-rising-treasury-yields-add-to-pressure/articleshow/132572526.cms",
+          "retrieval_relevance": 3.0,
+          "impact_score": 0.0,
+          "impact_reason": "Covers Indian government bond declines and inflation concerns driven by higher crude prices, presenting general macroeconomic conditions rather than telecom metrics."
+        }
+      ],
+      "retrieval_results": [
+        {
+          "url": "https://www.livemint.com/companies/news/uco-bank-says-iran-russia-rupee-trade-channels-remain-open-within-sanctions-ai-cybersecurity-digital-lending-11784779446635.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_PAYWALL"
+        },
+        {
+          "url": "https://www.aninews.in/news/business/india-pharma-market-enters-us-tariff-transition-with-strong-domestic-growth-report20260723104932/",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/news/international/world-news/war-risk-premiums-surge-1000-as-hormuz-red-sea-gulf-oil-amid-shipping-tensions-due-to-middle-east-conflict-and-troubles-for-india-crude-imports/articleshow/132573750.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/markets/forex/forex-news/rupee-likely-shielded-by-rbi-intervention-as-oil-surges/articleshow/132572568.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/markets/bonds/oil-prices-scorch-indian-bonds-rising-treasury-yields-add-to-pressure/articleshow/132572526.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        }
+      ],
+      "model_id": "gemini-3.5-flash-lite",
+      "model_used": "Gemini 3.5 Flash Lite",
+      "fallback_from": [],
+      "primary_retry_at": null
+    }
+  },
+  "6f4e4ee1085e0b0d1543835dd30865c4d59b7cd9b08ee001ceefb2dff6661044": {
+    "fingerprint": "6f4e4ee1085e0b0d1543835dd30865c4d59b7cd9b08ee001ceefb2dff6661044",
+    "company": "Vodafone",
+    "created_at": "2026-07-24T07:10:16.058361+00:00",
+    "article_urls": [
+      "https://www.livemint.com/companies/news/uco-bank-says-iran-russia-rupee-trade-channels-remain-open-within-sanctions-ai-cybersecurity-digital-lending-11784779446635.html",
+      "https://www.aninews.in/news/business/india-pharma-market-enters-us-tariff-transition-with-strong-domestic-growth-report20260723104932",
+      "https://economictimes.indiatimes.com/news/international/world-news/war-risk-premiums-surge-1000-as-hormuz-red-sea-gulf-oil-amid-shipping-tensions-due-to-middle-east-conflict-and-troubles-for-india-crude-imports/articleshow/132573750.cms",
+      "https://economictimes.indiatimes.com/markets/forex/forex-news/rupee-likely-shielded-by-rbi-intervention-as-oil-surges/articleshow/132572568.cms",
+      "https://economictimes.indiatimes.com/markets/bonds/oil-prices-scorch-indian-bonds-rising-treasury-yields-add-to-pressure/articleshow/132572526.cms"
+    ],
+    "result": {
+      "market_score": -20.0,
+      "confidence": 75.0,
+      "summary": "The input company name refers to Vodafone Idea in the Indian telecom context. External macro developments show rising crude oil prices and geopolitical tensions in the Middle East posing inflationary and currency pressures on the Indian economy, which mildly impacts macro operating conditions, while specific direct telecom operational changes remain limited in the retrieved news.",
+      "risks": [
+        "Escalating crude oil prices and supply disruptions increasing macroeconomic inflation pressures.",
+        "Depreciation pressures on the Indian rupee affecting financing costs and import bills."
+      ],
+      "opportunities": [
+        "Potential resilience in domestic subscriber demand despite broader macro headwinds."
+      ],
+      "breakdown": {
+        "sentiment": -25.0,
+        "relevance": 50.0,
+        "importance": 60.0,
+        "recency": 100.0
+      },
+      "articles": [
+        {
+          "title": "Hormuz, Red Sea spark a 1,000% war-risk premium shock",
+          "description": "War-risk insurance premiums have surged by as much as 1,000% as tensions across the Strait of Hormuz and the Red Sea disrupt shipping. Fresh Houthi attacks and the US-Iran conflict are raising voyage costs, increasing crude import expenses for India and addin…",
+          "source": "The Times of India",
+          "published_at": "2026-07-23T06:56:44Z",
+          "url": "https://economictimes.indiatimes.com/news/international/world-news/war-risk-premiums-surge-1000-as-hormuz-red-sea-gulf-oil-amid-shipping-tensions-due-to-middle-east-conflict-and-troubles-for-india-crude-imports/articleshow/132573750.cms",
+          "retrieval_relevance": 3.6,
+          "impact_score": -0.2,
+          "impact_reason": "Surging war-risk insurance premiums and Middle East shipping disruptions threaten to raise import costs and macro inflation."
+        },
+        {
+          "title": "Rupee likely shielded by RBI intervention as oil surges",
+          "description": "The Indian rupee remained largely unchanged on Thursday.  Higher oil prices and central bank actions influenced its movement.  Global tensions in the Red Sea and strikes on Iran escalated oil prices.  These rising energy costs pose a significant risk to India…",
+          "source": "The Times of India",
+          "published_at": "2026-07-23T05:25:30Z",
+          "url": "https://economictimes.indiatimes.com/markets/forex/forex-news/rupee-likely-shielded-by-rbi-intervention-as-oil-surges/articleshow/132572568.cms",
+          "retrieval_relevance": 3.0,
+          "impact_score": -0.2,
+          "impact_reason": "Higher oil prices and currency pressures create macroeconomic headwinds for Indian firms, though partially mitigated by central bank intervention."
+        },
+        {
+          "title": "Oil prices scorch Indian bonds; rising Treasury yields add to pressure",
+          "description": "Indian government bonds declined early Thursday as Middle East tensions escalated. Crude oil prices neared $100 a barrel, and U.S. Treasury yields also rose. Higher oil prices threaten to revive inflation pressures and weaken the Indian rupee. This situation …",
+          "source": "The Times of India",
+          "published_at": "2026-07-23T05:22:43Z",
+          "url": "https://economictimes.indiatimes.com/markets/bonds/oil-prices-scorch-indian-bonds-rising-treasury-yields-add-to-pressure/articleshow/132572526.cms",
+          "retrieval_relevance": 3.0,
+          "impact_score": -0.2,
+          "impact_reason": "Spike in crude oil prices pushes up bond yields and inflation fears, potentially worsening operating cost conditions."
+        },
+        {
+          "title": "UCO Bank says Iran, Russia rupee trade channels remain open within sanctions",
+          "description": "The state-run lender said it continues to facilitate sanctions-compliant trade through special rupee vostro accounts, highlighting the continued role of India's alternative payment channels amid shifting geopolitical dynamics.",
+          "source": "Livemint",
+          "published_at": "2026-07-23T05:57:25Z",
+          "url": "https://www.livemint.com/companies/news/uco-bank-says-iran-russia-rupee-trade-channels-remain-open-within-sanctions-ai-cybersecurity-digital-lending-11784779446635.html",
+          "retrieval_relevance": 4.6,
+          "impact_score": 0.0,
+          "impact_reason": "The article content was inaccessible due to technical or platform restrictions."
+        },
+        {
+          "title": "India pharma market enters US tariff transition with strong domestic growth: Report",
+          "description": "India's pharmaceutical market is entering the proposed two-year transition period before the United States' planned tariffs on imported generic medicines with broad-based domestic growth momentum, according to an Equirus Securities report, which highlighted s…",
+          "source": "ANI News",
+          "published_at": "2026-07-23T06:17:28Z",
+          "url": "https://www.aninews.in/news/business/india-pharma-market-enters-us-tariff-transition-with-strong-domestic-growth-report20260723104932",
+          "retrieval_relevance": 4.0,
+          "impact_score": 0.0,
+          "impact_reason": "Discusses the Indian pharmaceutical market and US generic drug tariffs, which has no direct relevance to telecom revenue performance."
+        }
+      ],
+      "retrieval_results": [
+        {
+          "url": "https://www.livemint.com/companies/news/uco-bank-says-iran-russia-rupee-trade-channels-remain-open-within-sanctions-ai-cybersecurity-digital-lending-11784779446635.html",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_PAYWALL"
+        },
+        {
+          "url": "https://www.aninews.in/news/business/india-pharma-market-enters-us-tariff-transition-with-strong-domestic-growth-report20260723104932/",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/news/international/world-news/war-risk-premiums-surge-1000-as-hormuz-red-sea-gulf-oil-amid-shipping-tensions-due-to-middle-east-conflict-and-troubles-for-india-crude-imports/articleshow/132573750.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/markets/forex/forex-news/rupee-likely-shielded-by-rbi-intervention-as-oil-surges/articleshow/132572568.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        },
+        {
+          "url": "https://m.economictimes.com/markets/bonds/oil-prices-scorch-indian-bonds-rising-treasury-yields-add-to-pressure/articleshow/132572526.cms",
+          "status": "UrlRetrievalStatus.URL_RETRIEVAL_STATUS_SUCCESS"
+        }
+      ],
+      "model_id": "gemini-3.5-flash-lite",
+      "model_used": "Gemini 3.5 Flash Lite",
+      "fallback_from": [],
+      "primary_retry_at": null
+    }
   }
 }

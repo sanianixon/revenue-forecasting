@@ -26,8 +26,12 @@ MAX_CACHE_ENTRIES = 50
 
 
 @st.cache_data(ttl=60 * 60 * 6, show_spinner=False)
-def get_cached_external_news():
-    return fetch_external_news(page_size=30, keep_top=5)
+def get_cached_external_news(company):
+    return fetch_external_news(
+        company=company,
+        page_size=30,
+        keep_top=5,
+    )
 
 
 def _market_adjustment_percent(market_score: float) -> float:
@@ -449,13 +453,22 @@ def _read_cached_market_result(fingerprint: str) -> dict | None:
     result = entry.get("result")
     return result if isinstance(result, dict) else None
 
-def _get_latest_cached_market_result():
+def _get_latest_cached_market_result(company):
     cache = _load_persistent_cache()
-
     latest_entry = None
+
+    requested_company = str(company).strip().casefold()
 
     for entry in cache.values():
         if not isinstance(entry, dict):
+            continue
+
+        cached_company = str(
+            entry.get("company") or ""
+        ).strip().casefold()
+
+        # Never reuse another company’s analysis.
+        if cached_company != requested_company:
             continue
 
         created_at = entry.get("created_at")
@@ -519,11 +532,22 @@ def _save_cached_market_result(
             pass
 
 
-def render_external_intelligence(df):
+def render_external_intelligence(df, company):
     title_col, refresh_col = st.columns([4, 1])
 
     with title_col:
         st.subheader("AI Market Intelligence")
+        st.caption(f"Market intelligence for: {company}")
+
+        if st.session_state.get(
+            "telecom_data_source"
+        ) == "Upload telecom data":
+            st.warning(
+                "This company name was entered by the user and has not been "
+                "independently verified. News matching may include similarly "
+                "named or unrelated organisations. Review the selected articles "
+                "before relying on the market adjustment."
+            )
 
     with refresh_col:
         st.write("")
@@ -546,13 +570,8 @@ def render_external_intelligence(df):
         )
 
     try:
-        articles = get_cached_external_news()
+        articles = get_cached_external_news(company)
         article_count = len(articles)
-        company = st.session_state.get(
-            "company_selector",
-            "Selected company",
-        )
-
         if not articles:
             st.caption(
                 "No sufficiently relevant articles were found during "
@@ -631,7 +650,7 @@ def render_external_intelligence(df):
         )
 
         if is_quota_error:
-            latest_cache = _get_latest_cached_market_result()
+            latest_cache = _get_latest_cached_market_result(company)
 
             if latest_cache:
                 created_at = latest_cache["created_at"]

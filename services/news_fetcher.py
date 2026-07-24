@@ -236,7 +236,10 @@ def _is_obviously_irrelevant(text: str) -> bool:
     return _contains_any(text, IRRELEVANT_TERMS)
 
 
-def _retrieval_relevance_score(text: str) -> float:
+def _retrieval_relevance_score(
+    text: str,
+    company: str = "",
+) -> float:
     """
     Rank rather than hard-filter.
 
@@ -244,6 +247,13 @@ def _retrieval_relevance_score(text: str) -> float:
     developments remain eligible because they can still affect revenue.
     """
     score = 0.0
+
+    company_name = str(company).strip().casefold()
+    normalised_text = str(text).casefold()
+
+    # Strongly prioritise articles that directly name the selected company.
+    if company_name and company_name in normalised_text:
+        score += 12.0
 
     telecom_matches = _count_terms(text, TELECOM_TERMS)
     economic_matches = _count_terms(text, ECONOMIC_TERMS)
@@ -393,8 +403,27 @@ URL: {article.get("url") or ""}
     articles_text = "\n\n".join(article_lines)
 
     return f"""
-You are analysing current market developments for {company}, an Indian
-subscription-based telecom business.
+The user entered the company name "{company}".
+
+Treat this as an unverified company name. Use the supplied articles and
+Indian telecom context to determine which company the user most likely
+means.
+
+Do not assume the identity solely from the entered name. Ignore foreign
+companies, unrelated businesses, and similarly named organisations.
+
+Do not invent a legal name, stock symbol, ownership information, company
+metrics, or market events.
+
+If the company cannot be identified reliably from the supplied evidence:
+
+- Clearly state the identity uncertainty in the summary.
+- Keep the confidence score low.
+- Keep the market-impact score close to zero.
+- Do not attribute unsupported news to the company.
+
+Analyse current market developments relevant to the most likely Indian
+telecom company represented by "{company}".
 
 Use URL Context to open and analyse the supplied article URLs.
 
@@ -795,6 +824,7 @@ def score_market_articles(
 
 
 def fetch_external_news(
+    company: str,
     page_size: int = 50,
     keep_top: int = 15,
 ) -> list[dict]:
@@ -815,14 +845,32 @@ def fetch_external_news(
 
     from_date = datetime.now() - timedelta(days=3)
 
+    clean_company = re.sub(
+        r'[^a-zA-Z0-9 &.\-]',
+        " ",
+        str(company),
+    )
+
+    clean_company = re.sub(
+        r"\s+",
+        " ",
+        clean_company,
+    ).strip()
+
+    company_search = (
+        f'OR "{clean_company}"'
+        if clean_company
+        else ""
+    )
+
     query = (
-        '(India AND (telecom OR Airtel OR Jio OR "Vodafone Idea" '
-        'OR TRAI OR spectrum OR tariff OR 5G)) '
-        'OR '
-        '(India AND (inflation OR GDP OR economy OR "repo rate" '
-        'OR RBI OR rupee OR "oil prices")) '
-        'OR '
-        '(India AND (war OR conflict OR sanctions OR geopolitical))'
+        f'(India AND (telecom OR Airtel OR Jio OR "Vodafone Idea" '
+        f'OR TRAI OR spectrum OR tariff OR 5G {company_search})) '
+        f'OR '
+        f'(India AND (inflation OR GDP OR economy OR "repo rate" '
+        f'OR RBI OR rupee OR "oil prices")) '
+        f'OR '
+        f'(India AND (war OR conflict OR sanctions OR geopolitical))'
     )
 
     params = {
@@ -875,7 +923,10 @@ def fetch_external_news(
             continue
 
         clean_article["retrieval_relevance"] = (
-            _retrieval_relevance_score(text)
+            _retrieval_relevance_score(
+            text,
+            company,
+)
         )
         clean_articles.append(clean_article)
 

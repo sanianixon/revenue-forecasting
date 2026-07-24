@@ -26,6 +26,10 @@ AI Business Forecasting Studio is an end-to-end forecasting application that com
 
 Instead of relying only on historical financial data, the platform analyses the latest business news using **Google Gemini**, allowing forecasts to be adjusted using current market conditions while remaining fully explainable.
 
+The platform currently provides a complete forecasting workspace for the **Indian telecom industry**. Airtel is available through a built-in verified dataset, while users can upload compatible quarterly data for other Indian telecom companies.
+
+For uploaded datasets, the application uses the entered company name to retrieve company-aware news and generate market intelligence. Since uploaded company names are user-provided, the selected news sources should be reviewed before using the AI market adjustment.
+
 The application automatically processes Airtel quarterly reports, builds historical datasets, trains multiple forecasting models, evaluates their performance, and presents everything through an interactive Streamlit dashboard.
 
 Users can test Conservative, Base Case and Optimistic scenarios or customise the model-generated ARPU and subscriber assumptions. Inflation is calculated automatically using official quarterly CPI data derived from MoSPI rather than requiring a manual estimate.
@@ -40,6 +44,10 @@ You can try it out: https://revenue-forecasting-model.streamlit.app/
 |------------|-------------|
 | Automated Report Processing | Extract financial metrics directly from quarterly reports |
 | Historical Dataset Generation | Build structured datasets automatically |
+| Industry Workspace | Dedicated Indian telecom forecasting workflow |
+| Built-In Airtel Dataset | Forecast using automatically prepared and verified Airtel quarterly data |
+| Custom Telecom Uploads | Upload quarterly CSV data for another Indian telecom company |
+| CSV Data Validation | Validate required columns, numeric values and quarter formatting |
 | Multiple Forecasting Models | Linear Regression, Ridge, Random Forest & Prophet |
 | Model Evaluation | Compare models using MAE, RMSE, MAPE & R² |
 | Scenario-Based Forecasting | Test Conservative, Base Case and Optimistic assumptions |
@@ -47,6 +55,8 @@ You can try it out: https://revenue-forecasting-model.streamlit.app/
 | Revenue Impact Breakdown | Separate the revenue effects of ARPU and subscriber adjustments |
 | Automatic Inflation Baseline | Use official MoSPI CPI data to calculate quarterly inflation |
 | AI Market Intelligence | Analyse live business news using NewsAPI & Gemini |
+| Company-Aware News Search | Retrieve market news using the selected or entered company name |
+| Company-Specific Caching | Keep AI analysis and quota fallback isolated between companies |
 | Quota-Aware AI Fallback | Continue using the last successful analysis when Gemini quota is reached |
 | Explainable Forecasting | Show why forecasts increase or decrease |
 | Interactive Dashboard | Clean Streamlit interface for predictions |
@@ -54,6 +64,30 @@ You can try it out: https://revenue-forecasting-model.streamlit.app/
 ---
 
 # Dashboard
+## Industry Selection
+
+<img src="images/industry_page.png">
+
+Select an industry-specific forecasting workspace. The Indian telecom workspace is currently available, with additional industries planned for future releases.
+
+---
+
+## Company Data
+
+Choose the built-in verified Airtel dataset or upload quarterly data for another Indian telecom company.
+
+Custom CSV files must use the following structure:
+
+| Column | Description | Example |
+|--------|-------------|---------|
+| Quarter | Indian financial quarter | Q1 FY23 |
+| Revenue | Quarterly revenue in ₹ crore | 10410.1 |
+| ARPU | Monthly blended ARPU in ₹ | 128 |
+| Customer Base | End-of-quarter subscribers in millions | 240.4 |
+
+Uploaded company names are used for company-aware market intelligence but are not independently verified.
+
+---
 
 ## Forecast Configuration
 
@@ -102,27 +136,27 @@ The Results page also separates the revenue effect of each analyst adjustment.
 ## Workflow
 
 ```text
-Quarterly Reports
-        ↓
-PDF Processing
-        ↓
-Historical Dataset
-        ↓
-Machine Learning Models
-        ↓
-Base ARPU & Subscriber Forecast
-        ↓
-Business Scenario Adjustments
-        ↓
-Baseline Revenue Forecast
-        ↓
-NewsAPI
-        ↓
-Google Gemini
-        ↓
-Market Impact Analysis
-        ↓
-Final Revenue Prediction
+Airtel Quarterly Reports       Custom Telecom CSV
+           ↓                           ↓
+ Automated PDF Processing       Data Validation
+           ↓                           ↓
+           └──── Historical Dataset ──┘
+                        ↓
+                Machine Learning Models
+                        ↓
+                Base ARPU & Subscriber Forecast
+                        ↓
+                Business Scenario Adjustments
+                        ↓
+                Baseline Revenue Forecast
+                        ↓
+                NewsAPI
+                        ↓
+                Google Gemini
+                        ↓
+                Market Impact Analysis
+                        ↓
+                Final Revenue Prediction
 ```
 
 ---
@@ -183,7 +217,8 @@ GEMINI_API_KEY=your_gemini_api_key
 
 ## Future Improvements
 
-- Support additional companies
+- Add complete forecasting workspaces for aviation, retail, banking and subscription businesses
+- Add more built-in verified telecom company datasets
 - Add segment-level forecasting for mobile, broadband and enterprise revenue
 - Export executive PDF reports
 - Improve scenario calibration using historical outcomes
